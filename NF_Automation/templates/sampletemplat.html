@@ -1,0 +1,470 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Dynamic JSON Builder</title>-->
+<!--    <style>-->
+<!--        body { font-family: Arial; padding: 20px; background-color: #f8f9fa; }-->
+<!--        .section {-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 15px;-->
+<!--            margin-bottom: 15px;-->
+<!--            border-radius: 10px;-->
+<!--            background: #e6f2ff;-->
+<!--        }-->
+<!--        .section h3 { margin-top: 0; }-->
+<!--        .kv-pair { display: flex; margin-bottom: 10px; gap: 10px; }-->
+<!--        .kv-pair input { width: 200px; padding: 5px; }-->
+<!--        button { padding: 5px 12px; margin-top: 10px; cursor: pointer; }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h2>Dynamic Testcase Scenario JSON Builder</h2>-->
+
+<!--<label>Client Name:</label>-->
+<!--<input type="text" id="client_name" value="NF"><br><br>-->
+<!--<label>Project Module:</label>-->
+<!--<input type="text" id="project_module" value="ECF"><br><br>-->
+<!--<label>Testcase Scenario Name:</label>-->
+<!--<input type="text" id="scenario_name" value="ECF Approve"><br><br>-->
+<!--<label>Environment:</label>-->
+<!--<input type="text" id="environment" value="DO"><br><br>-->
+
+<!--<hr>-->
+
+<!--<div id="sections-container"></div>-->
+
+<!--<button onclick="addSection()">Add Section</button><br><br>-->
+<!--<button onclick="submitJSON()">Submit</button>-->
+
+<!--<pre id="result"></pre>-->
+
+<!--<script>-->
+<!--let sectionCount = 0;-->
+
+<!--function addSection() {-->
+<!--    const container = document.getElementById("sections-container");-->
+
+<!--    const sectionDiv = document.createElement("div");-->
+<!--    sectionDiv.className = "section";-->
+<!--    sectionDiv.dataset.index = sectionCount;-->
+
+<!--    sectionDiv.innerHTML = `-->
+<!--        <h3>Section ${sectionCount + 1}</h3>-->
+<!--        <label>Section Name: </label>-->
+<!--        <input type="text" class="section-name" placeholder="e.g., userlogin"><br><br>-->
+
+<!--        <div class="kv-container" id="kv-${sectionCount}"></div>-->
+<!--        <button type="button" onclick="addKeyValue(${sectionCount})">Add Key-Value</button>-->
+<!--        <button type="button" onclick="addObjectToList(${sectionCount})">Add Object to List</button>-->
+<!--    `;-->
+
+<!--    container.appendChild(sectionDiv);-->
+<!--    sectionCount++;-->
+<!--}-->
+
+<!--function addKeyValue(index) {-->
+<!--    const kvContainer = document.getElementById(`kv-${index}`);-->
+<!--    const kvPair = document.createElement("div");-->
+<!--    kvPair.className = "kv-pair";-->
+<!--    kvPair.innerHTML = `-->
+<!--        <input type="text" placeholder="Key">-->
+<!--        <input type="text" placeholder="Value">-->
+<!--        <button type="button" onclick="this.parentElement.remove()">🗑</button>-->
+<!--    `;-->
+<!--    kvContainer.appendChild(kvPair);-->
+<!--}-->
+
+<!--function addObjectToList(index) {-->
+<!--    const kvContainer = document.getElementById(`kv-${index}`);-->
+<!--    const objBlock = document.createElement("div");-->
+<!--    objBlock.className = "section";-->
+<!--    objBlock.innerHTML = `<strong>Object inside List:</strong><br>`;-->
+
+<!--    const subKV = document.createElement("div");-->
+<!--    subKV.className = "kv-container";-->
+
+<!--    subKV.innerHTML = `-->
+<!--        <div class="kv-pair"><input type="text" placeholder="Key"><input type="text" placeholder="Value"></div>-->
+<!--        <button type="button" onclick="addSubKV(this)">Add Key-Value</button>-->
+<!--        <button type="button" onclick="this.parentElement.remove()">🗑 Remove Object</button>-->
+<!--    `;-->
+
+<!--    objBlock.appendChild(subKV);-->
+<!--    kvContainer.appendChild(objBlock);-->
+<!--}-->
+
+<!--function addSubKV(btn) {-->
+<!--    const parent = btn.previousElementSibling;-->
+<!--    const newPair = document.createElement("div");-->
+<!--    newPair.className = "kv-pair";-->
+<!--    newPair.innerHTML = `<input type="text" placeholder="Key"><input type="text" placeholder="Value"> <button type="button" onclick="this.parentElement.remove()">🗑</button>`;-->
+<!--    parent.appendChild(newPair);-->
+<!--}-->
+
+<!--function submitJSON() {-->
+<!--    const clientName = document.getElementById("client_name").value;-->
+<!--    const projectModule = document.getElementById("project_module").value;-->
+<!--    const scenarioName = document.getElementById("scenario_name").value;-->
+<!--    const environment = document.getElementById("environment").value;-->
+
+<!--    const data = [];-->
+
+<!--    document.querySelectorAll(".section").forEach(section => {-->
+<!--        const sectionNameInput = section.querySelector(".section-name");-->
+<!--        if (!sectionNameInput) return;  // skip inner sub-objects-->
+
+<!--        const sectionName = sectionNameInput.value;-->
+<!--        const kvPairs = section.querySelectorAll(".kv-pair");-->
+<!--        const subObjects = section.querySelectorAll(".section .kv-container");-->
+
+<!--        const sectionData = {};-->
+<!--        let isList = false;-->
+<!--        let listValues = [];-->
+
+<!--        subObjects.forEach(sub => {-->
+<!--            if (sub !== section.querySelector(".kv-container")) {-->
+<!--                // Object inside list-->
+<!--                const obj = {};-->
+<!--                sub.querySelectorAll(".kv-pair").forEach(kv => {-->
+<!--                    const k = kv.children[0].value;-->
+<!--                    const v = kv.children[1].value;-->
+<!--                    if (k) obj[k] = v;-->
+<!--                });-->
+<!--                listValues.push(obj);-->
+<!--                isList = true;-->
+<!--            }-->
+<!--        });-->
+
+<!--        if (!isList) {-->
+<!--            // Normal key-value section-->
+<!--            kvPairs.forEach(kv => {-->
+<!--                const key = kv.children[0].value;-->
+<!--                const value = kv.children[1].value;-->
+<!--                if (key) sectionData[key] = value;-->
+<!--            });-->
+<!--            data.push({-->
+<!--                "Testcase_scnarios": scenarioName,-->
+<!--                [sectionName]: sectionData-->
+<!--            });-->
+<!--        } else {-->
+<!--            data.push({-->
+<!--                "Testcase_scnarios": scenarioName,-->
+<!--                [sectionName]: listValues-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+
+<!--    const payload = {-->
+<!--        client_name: clientName,-->
+<!--        Project_module: projectModule,-->
+<!--        Testcase_scenario_name: scenarioName,-->
+<!--        environment: environment,-->
+<!--        Testcase_scenario_template: {-->
+<!--            data: data-->
+<!--        }-->
+<!--    };-->
+
+<!--    document.getElementById("result").textContent = JSON.stringify(payload, null, 4);-->
+
+<!--    // optional: send to backend-->
+<!--    /*-->
+<!--    fetch("/test_temp_create", {-->
+<!--        method: "POST",-->
+<!--        headers: { "Content-Type": "application/json" },-->
+<!--        body: JSON.stringify(payload)-->
+<!--    }).then(res => res.json()).then(data => {-->
+<!--        alert("Saved successfully!");-->
+<!--    });-->
+<!--    */-->
+<!--}-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Automation</title>
+    <style>
+        #template {
+            display: inline-block;
+            width: 1500px;
+            margin-bottom: 30px;
+            margin-left: 40px;
+            background-color: #f0f8ff;
+            padding: 40px;
+            border-radius: 3px;
+        }
+        label { margin-left: 20px; }
+        input[type="text"], input[type="url"], select {
+            width: 150px;
+            margin-right: 10px;
+        }
+        .row {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            background-color: #f0f8ff;
+            border-radius: 3px;
+            padding: 10px;
+        }
+        .col-md-3 {
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+        }
+        button, #submit {
+            background-color: #FAEBD7;
+            border: 1px solid #ccc;
+            color: blue;
+            font-size: 17px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 8px 16px;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<h3>Automation Templates:</h3>
+
+<form id="main-form">
+    <div class="template" id="template">
+        <label for="client-name">Client Name:</label>
+        <select id="client-name" name="client-name">
+            <option value="" disabled selected>Choose client name</option>
+            <option value="NF">NF</option>
+            <option value="ABC">ABC</option>
+            <option value="XYZ">XYZ</option>
+        </select>
+
+        <label for="module-name">Module Name:</label>
+        <select id="module-name" name="module-name">
+            <option value="" disabled selected>Choose module name</option>
+            <option value="ECF">ECF</option>
+            <option value="Invoice">Invoice</option>
+            <option value="Payment">Payment</option>
+        </select>
+
+        <label for="Environment">Environment:</label>
+        <select id="Environment" name="Environment">
+            <option value="" disabled selected>Choose Environment</option>
+            <option value="SIT">SIT</option>
+            <option value="DO">DO</option>
+            <option value="UAT">UAT</option>
+        </select>
+
+        <label>Environment Url:</label>
+        <input type="url" id="env-url">
+
+        <label>Test Scenario Name:</label>
+        <input type="text" id="scenario-name">
+    </div>
+
+    <h2>Test Data Inputs:</h2>
+    <button type="button" onclick="addFields()">Add Fields for input</button>
+    <input type="submit" value="Submit" id="submit">
+
+    <div id="dynamic-fields">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Formcontrol Name:</label>
+                <input type="text" name="formcontrol_key[]" placeholder="Key">
+                <input type="text" name="formcontrol_value[]" placeholder="Value">
+            </div>
+            <div class="col-md-3">
+                <label>Placeholder Name:</label>
+                <input type="text" name="placeholder_key[]" placeholder="Key">
+                <input type="text" name="placeholder_value[]" placeholder="Value">
+            </div>
+            <div class="col-md-3">
+                <label>ID:</label>
+                <input type="text" name="id_key[]" placeholder="Key">
+                <input type="text" name="id_value[]" placeholder="Value">
+            </div>
+            <div class="col-md-3">
+                <label>Screen Name:</label>
+                <input type="text" name="screenname[]" placeholder="Screen name">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+function addFields() {
+    const dynamicFields = document.getElementById("dynamic-fields");
+
+    const row = document.createElement("div");
+    row.className = "row";
+
+    row.innerHTML = `
+        <div class="col-md-3">
+            <label>Formcontrol Name:</label>
+            <input type="text" name="formcontrol_key[]" placeholder="Key">
+            <input type="text" name="formcontrol_value[]" placeholder="Value">
+        </div>
+        <div class="col-md-3">
+            <label>Placeholder Name:</label>
+            <input type="text" name="placeholder_key[]" placeholder="Key">
+            <input type="text" name="placeholder_value[]" placeholder="Value">
+        </div>
+        <div class="col-md-3">
+            <label>ID:</label>
+            <input type="text" name="id_key[]" placeholder="Key">
+            <input type="text" name="id_value[]" placeholder="Value">
+        </div>
+        <div class="col-md-3">
+            <label>Screen Name:</label>
+            <input type="text" name="screenname[]" placeholder="Screen name">
+        </div>
+    `;
+
+    dynamicFields.appendChild(row);
+}
+
+<!--document.getElementById("main-form").addEventListener("submit", async function(event) {-->
+<!--    event.preventDefault();-->
+
+<!--    const clientName = document.getElementById("client-name").value;-->
+<!--    const moduleName = document.getElementById("module-name").value;-->
+<!--    const environment = document.getElementById("Environment").value;-->
+<!--    const scenarioName = document.getElementById("scenario-name").value;-->
+
+<!--    const formcontrol_keys = document.getElementsByName("formcontrol_key[]");-->
+<!--    const formcontrol_values = document.getElementsByName("formcontrol_value[]");-->
+<!--    const placeholder_keys = document.getElementsByName("placeholder_key[]");-->
+<!--    const placeholder_values = document.getElementsByName("placeholder_value[]");-->
+<!--    const id_keys = document.getElementsByName("id_key[]");-->
+<!--    const id_values = document.getElementsByName("id_value[]");-->
+<!--    const screen_names = document.getElementsByName("screenname[]");-->
+
+<!--    const screenDataMap = {};  // screen_name → list of dicts-->
+
+<!--    for (let i = 0; i < screen_names.length; i++) {-->
+<!--        const screen_name = screen_names[i].value.trim();-->
+<!--        if (!screen_name) continue;-->
+
+<!--        const obj = {};-->
+
+<!--        if (formcontrol_keys[i].value) {-->
+<!--            obj[formcontrol_keys[i].value] = formcontrol_values[i].value;-->
+<!--        }-->
+<!--        if (placeholder_keys[i].value) {-->
+<!--            obj[placeholder_keys[i].value] = placeholder_values[i].value;-->
+<!--        }-->
+<!--        if (id_keys[i].value) {-->
+<!--            obj[id_keys[i].value] = id_values[i].value;-->
+<!--        }-->
+
+<!--        if (!screenDataMap[screen_name]) {-->
+<!--            screenDataMap[screen_name] = [];-->
+<!--        }-->
+<!--        screenDataMap[screen_name].push(obj);-->
+<!--    }-->
+
+<!--    const test_data = {-->
+<!--        "Testcase_scnarios": scenarioName-->
+<!--    };-->
+
+<!--    for (const [screen, data] of Object.entries(screenDataMap)) {-->
+<!--        // If only one entry, simplify (dict); else use list of dicts-->
+<!--        test_data[screen] = data.length === 1 ? data[0] : data;-->
+<!--    }-->
+
+<!--    const payload = {-->
+<!--        client_name: clientName,-->
+<!--        Project_module: moduleName,-->
+<!--        Testcase_scenario_name: scenarioName,-->
+<!--        environment: environment,-->
+<!--        Testcase_scenario_template: {-->
+<!--            data: [test_data]-->
+<!--        }-->
+<!--    };-->
+
+<!--    console.log("Payload to send:", payload);-->
+
+<!--    const response = await fetch("/test_temp_create", {-->
+<!--        method: "POST",-->
+<!--        headers: {-->
+<!--            "Content-Type": "application/json"-->
+<!--        },-->
+<!--        body: JSON.stringify(payload)-->
+<!--    });-->
+
+<!--    const result = await response.json();-->
+<!--    alert("Template saved: " + JSON.stringify(result));-->
+<!--});-->
+    document.getElementById("main-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const clientName = document.getElementById("client-name").value;
+    const moduleName = document.getElementById("module-name").value;
+    const environment = document.getElementById("Environment").value;
+    const scenarioName = document.getElementById("scenario-name").value;
+
+    const formcontrol_keys = document.getElementsByName("formcontrol_key[]");
+    const formcontrol_values = document.getElementsByName("formcontrol_value[]");
+    const screen_names = document.getElementsByName("screenname[]");
+
+    const scenario_dict = {
+        "Testcase_scnarios": scenarioName
+    };
+
+    const screens = {};
+
+    for (let i = 0; i < formcontrol_keys.length; i++) {
+        const key = formcontrol_keys[i].value.trim();
+        const value = formcontrol_values[i].value.trim();
+        const screen = screen_names[i].value.trim();
+
+        if (!key || !screen) continue;
+
+        if (!(screen in screens)) {
+            screens[screen] = [];
+        }
+
+        screens[screen].push({ [key]: value });
+    }
+
+    for (const [screen, items] of Object.entries(screens)) {
+        if (items.length === 1) {
+            scenario_dict[screen] = items[0];
+        } else {
+            const merged = {};
+            items.forEach(item => Object.assign(merged, item));
+            scenario_dict[screen] = [merged];
+        }
+    }
+
+    const final_payload = {
+        client_name: clientName,
+        Project_module: moduleName,
+        Testcase_scenario_name: scenarioName,
+        environment: environment,
+        Testcase_scenario_template: {
+            data: [scenario_dict]
+        }
+    };
+
+    console.log("Final Payload:", final_payload);
+
+    const response = await fetch("/test_temp_create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(final_payload)
+    });
+
+    const result = await response.json();
+    alert("Template saved: " + JSON.stringify(result));
+});
+</script>
+
+</body>
+</html>

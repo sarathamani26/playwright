@@ -1,0 +1,924 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--  <title>Test Automation</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--    }-->
+
+<!--    #template {-->
+<!--      display: block;-->
+<!--      width: 100%;-->
+<!--      max-width: 1000px;-->
+<!--      margin: 20px auto;-->
+<!--      background-color: #ccd1d2  ;-->
+<!--      padding: 30px;-->
+<!--      border-radius: 10px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      margin-left: 30px;-->
+<!--      margin-top: 10px;-->
+<!--    }-->
+
+<!--    input[type="text"],-->
+<!--    input[type="url"],-->
+<!--    select {-->
+<!--      width: 162px;-->
+<!--      margin: 1px 10px 10px 10px;-->
+<!--      padding: 5px;-->
+<!--    }-->
+
+<!--    button,-->
+<!--    #submit {-->
+<!--      background-color: #e6e5da   ;-->
+<!--      border: 1px solid #ccc;-->
+<!--      color: blue;-->
+<!--      font-size: 16px;-->
+<!--      cursor: pointer;-->
+<!--      border-radius: 10px;-->
+<!--      padding: 10px 16px;-->
+<!--      margin: 10px;-->
+<!--    }-->
+
+<!--    h3, h2 {-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    #json-output {-->
+<!--      white-space: pre-wrap;-->
+<!--      background: #f8f8f8;-->
+<!--      padding: 10px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      width: 90%;-->
+<!--      margin: 20px auto;-->
+<!--    }-->
+
+<!--    .btn-group {-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    table#dynamic-fields {-->
+<!--      width: 85%;-->
+<!--      margin: 20px auto;-->
+<!--      border-collapse: collapse;-->
+<!--      background-color: #f0f8ff;-->
+<!--    }-->
+
+<!--    table#dynamic-fields th,-->
+<!--    table#dynamic-fields td {-->
+<!--      border: 3px solid #ccc;-->
+<!--      padding: 3px;-->
+<!--      text-align: left;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h3>Automation Templates:</h3>-->
+
+<!--<form id="main-form">-->
+<!--  <div class="template" id="template">-->
+<!--    <label for="client-name">Client Name:</label>-->
+<!--    <select id="client-name" name="client-name" required>-->
+<!--      <option value="" disabled selected>Choose client name</option>-->
+<!--      <option value="NF">NF</option>-->
+<!--      <option value="NAC">NAC</option>-->
+<!--      <option value="KVB">KVB</option>-->
+<!--      <option value="IB">IB</option>-->
+<!--    </select>-->
+
+<!--    <label for="module-name">Module Name:</label>-->
+<!--    <select id="module-name" name="module-name" required>-->
+<!--      <option value="" disabled selected>Choose module name</option>-->
+<!--      <option value="Vendor">Vendor</option>-->
+<!--      <option value="ECF">ECF</option>-->
+<!--      <option value="AP">AP</option>-->
+<!--    </select>-->
+
+<!--    <label for="Environment">Environment:</label>-->
+<!--    <select id="Environment" name="Environment" required>-->
+<!--      <option value="" disabled selected>Choose Environment</option>-->
+<!--      <option value="DO">DO</option>-->
+<!--      <option value="SIT">SIT</option>-->
+<!--      <option value="UAT">UAT</option>-->
+<!--    </select>-->
+
+<!--    <label>Environment Url:</label>-->
+<!--    <input type="url" id="env-url" name="env-url" placeholder="https://example.com">-->
+
+<!--    <label>Test Scenario Name:</label>-->
+<!--    <input type="text" id="scenario-name" name="scenario-name" placeholder="Scenario Name" required>-->
+<!--  </div>-->
+
+<!--  <h2>Test Data Inputs</h2>-->
+
+<!--  <div class="btn-group">-->
+<!--    <button type="button" id="add-fields-button">Add Fields for input</button>-->
+<!--    <button type="button" id="clear-fields-button">Clear</button>-->
+<!--    <input type="submit" value="Submit" id="submit">-->
+<!--  </div>-->
+
+<!--  <table id="dynamic-fields">-->
+<!--    <thead>-->
+<!--      <tr>-->
+<!--        <th>Formcontrol Name</th>-->
+<!--        <th>Placeholder Name</th>-->
+<!--        <th>ID</th>-->
+<!--        <th>Screen Name</th>-->
+<!--      </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--      <tr class="row default-row">-->
+<!--        <td>-->
+<!--          <input type="text" name="formcontrol_key[]" placeholder="Key" style="width:48%;">-->
+<!--          <input type="text" name="formcontrol_value[]" placeholder="Value" style="width:48%;">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <input type="text" name="placeholder_key[]" placeholder="Key" style="width:48%;">-->
+<!--          <input type="text" name="placeholder_value[]" placeholder="Value" style="width:48%;">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <input type="text" name="id_key[]" placeholder="Key" style="width:48%;">-->
+<!--          <input type="text" name="id_value[]" placeholder="Value" style="width:48%;">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <input type="text" name="screenname[]" placeholder="Screen name" required style="width:%;">-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</form>-->
+
+<!--<pre id="json-output"></pre>-->
+
+<!--<script>-->
+<!--function addFields() {-->
+<!--  const dynamicFields = document.getElementById("dynamic-fields").querySelector("tbody");-->
+
+<!--  const row = document.createElement("tr");-->
+<!--  row.className = "row";-->
+
+<!--  row.innerHTML = `-->
+<!--    <td>-->
+<!--      <input type="text" name="formcontrol_key[]" placeholder="Key" style="width:48%;">-->
+<!--      <input type="text" name="formcontrol_value[]" placeholder="Value" style="width:48%;">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <input type="text" name="placeholder_key[]" placeholder="Key" style="width:48%;">-->
+<!--      <input type="text" name="placeholder_value[]" placeholder="Value" style="width:48%;">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <input type="text" name="id_key[]" placeholder="Key" style="width:48%;">-->
+<!--      <input type="text" name="id_value[]" placeholder="Value" style="width:48%;">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <input type="text" name="screenname[]" placeholder="Screen name" required style="width:%;">-->
+<!--    </td>-->
+<!--  `;-->
+
+<!--  dynamicFields.appendChild(row);-->
+<!--}-->
+
+<!--function clearLastRow() {-->
+<!--  const dynamicFields = document.getElementById("dynamic-fields").querySelector("tbody");-->
+<!--  const rows = dynamicFields.querySelectorAll("tr");-->
+<!--  if (rows.length > 1) {-->
+<!--    dynamicFields.removeChild(rows[rows.length - 1]);-->
+<!--  } else {-->
+<!--    alert("Can't remove the last row.");-->
+<!--  }-->
+<!--}-->
+
+<!--document.getElementById("add-fields-button").addEventListener("click", addFields);-->
+<!--document.getElementById("clear-fields-button").addEventListener("click", clearLastRow);-->
+
+<!--document.getElementById("main-form").addEventListener("submit", function(event) {-->
+<!--  event.preventDefault();-->
+
+<!--  const clientName = document.getElementById("client-name").value;-->
+<!--  const moduleName = document.getElementById("module-name").value;-->
+<!--  const environment = document.getElementById("Environment").value;-->
+<!--  const envUrl = document.getElementById("env-url").value;-->
+<!--  const scenarioName = document.getElementById("scenario-name").value;-->
+
+<!--  const formcontrol_keys = document.getElementsByName("formcontrol_key[]");-->
+<!--  const formcontrol_values = document.getElementsByName("formcontrol_value[]");-->
+<!--  const placeholder_keys = document.getElementsByName("placeholder_key[]");-->
+<!--  const placeholder_values = document.getElementsByName("placeholder_value[]");-->
+<!--  const id_keys = document.getElementsByName("id_key[]");-->
+<!--  const id_values = document.getElementsByName("id_value[]");-->
+<!--  const screen_names = document.getElementsByName("screenname[]");-->
+
+<!--  const scenario_dict = {-->
+<!--    "Testcase_scnarios": scenarioName-->
+<!--  };-->
+
+<!--  const screens = {};-->
+
+<!--  for (let i = 0; i < screen_names.length; i++) {-->
+<!--    const screen = screen_names[i].value.trim();-->
+<!--    if (!screen) continue;-->
+
+<!--    const obj = {};-->
+
+<!--    if (formcontrol_keys[i].value.trim() && formcontrol_values[i].value.trim()) {-->
+<!--      obj[formcontrol_keys[i].value.trim()] = formcontrol_values[i].value.trim();-->
+<!--    }-->
+<!--    if (placeholder_keys[i].value.trim() && placeholder_values[i].value.trim()) {-->
+<!--      obj[placeholder_keys[i].value.trim()] = placeholder_values[i].value.trim();-->
+<!--    }-->
+<!--    if (id_keys[i].value.trim() && id_values[i].value.trim()) {-->
+<!--      obj[id_keys[i].value.trim()] = id_values[i].value.trim();-->
+<!--    }-->
+
+<!--    if (!screens[screen]) {-->
+<!--      screens[screen] = [];-->
+<!--    }-->
+
+<!--    screens[screen].push(obj);-->
+<!--  }-->
+
+<!--  for (const [screen, data] of Object.entries(screens)) {-->
+<!--    if (data.length === 1) {-->
+<!--      scenario_dict[screen] = data[0];-->
+<!--    } else {-->
+<!--      const merged = {};-->
+<!--      data.forEach(item => Object.assign(merged, item));-->
+<!--      scenario_dict[screen] = [merged];-->
+<!--    }-->
+<!--  }-->
+
+<!--  const final_payload = {-->
+<!--    client_name: clientName,-->
+<!--    Project_module: moduleName,-->
+<!--    Testcase_scenario_name: scenarioName,-->
+<!--    environment: environment,-->
+<!--    environment_url: envUrl,-->
+<!--    Testcase_scenario_template: {-->
+<!--      data: [scenario_dict]-->
+<!--    }-->
+<!--  };-->
+
+<!--  console.log("Payload submitted to backend:", final_payload);-->
+<!--  document.getElementById("json-output").textContent = JSON.stringify(final_payload, null, 2);-->
+
+<!--  fetch("/nfserv/test_temp_create", {-->
+<!--    method: "POST",-->
+<!--    headers: {-->
+<!--      "Content-Type": "application/json",-->
+<!--      "Authorization": "Bearer " + localStorage.getItem("authToken")-->
+<!--    },-->
+<!--    body: JSON.stringify(final_payload)-->
+<!--  })-->
+<!--  .then(res => res.json())-->
+<!--  .then(data => {-->
+<!--    alert("Saved Successfully: " + JSON.stringify(data));-->
+<!--    window.location.href = "http://127.0.0.1:8001/nfserv/run_processtemplate-form/";-->
+<!--  })-->
+<!--  .catch(err => {-->
+<!--    console.error("Error occurred:", err);-->
+<!--    alert("Error: " + err.message);-->
+<!--  });-->
+<!--});-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<html>-->
+<!--<head>-->
+<!--  <title>Test Automation</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--    }-->
+
+<!--    #template {-->
+<!--      display: block;-->
+<!--      width: 100%;-->
+<!--      max-width: 1000px;-->
+<!--      margin: 20px auto;-->
+<!--      background-color: #ccd1d2;-->
+<!--      padding: 30px;-->
+<!--      border-radius: 10px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      margin-left: 30px;-->
+<!--      margin-top: 10px;-->
+<!--    }-->
+
+<!--    input[type="text"],-->
+<!--    input[type="url"],-->
+<!--    select {-->
+<!--      width: 162px;-->
+<!--      margin: 1px 10px 10px 10px;-->
+<!--      padding: 5px;-->
+<!--    }-->
+
+<!--    button,-->
+<!--    #submit {-->
+<!--      background-color: #e6e5da;-->
+<!--      border: 1px solid #ccc;-->
+<!--      color: blue;-->
+<!--      font-size: 16px;-->
+<!--      cursor: pointer;-->
+<!--      border-radius: 10px;-->
+<!--      padding: 10px 16px;-->
+<!--      margin: 10px;-->
+<!--    }-->
+
+<!--    h3, h2 {-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    #json-output {-->
+<!--      white-space: pre-wrap;-->
+<!--      background: #f8f8f8;-->
+<!--      padding: 10px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      width: 90%;-->
+<!--      margin: 22px auto;-->
+<!--    }-->
+
+<!--    .btn-group {-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    table#dynamic-fields {-->
+<!--      width: 75%;-->
+<!--      margin: 20px auto;-->
+<!--      border-collapse: collapse;-->
+<!--      background-color: #f0f8ff;-->
+<!--    }-->
+
+<!--    table#dynamic-fields th,-->
+<!--    table#dynamic-fields td {-->
+<!--      border: 3px solid #ccc;-->
+<!--      padding: 3px;-->
+<!--      text-align: left;-->
+<!--    }-->
+
+<!--    .delete-btn {-->
+<!--    background-color: blue;-->
+<!--    border: none;-->
+<!--    cursor: pointer;-->
+<!--    width: 60px;-->
+<!--    height: 20px;-->
+
+<!--    display: flex;-->
+<!--    justify-content: center;-->
+<!--    align-items: center;-->
+
+<!--    color: white;-->
+<!--    font-size: 12px;-->
+<!--    font-weight: bold;-->
+
+<!--    background-size: contain;-->
+<!--    background-repeat: no-repeat;-->
+<!--    background-position: center;}-->
+
+<!--    .curved-input {-->
+<!--    border-radius: 8px;-->
+<!--    border: 1px solid #ccc;-->
+<!--    padding: 4px 6px;-->
+<!--    box-sizing: border-box;-->
+<!--  }-->
+
+
+
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h3>Automation Templates:</h3>-->
+
+<!--<form id="main-form">-->
+<!--  <div class="template" id="template">-->
+<!--    <label for="client-name">Client Name:</label>-->
+<!--    <select id="client-name" name="client-name" required>-->
+<!--      <option value="" disabled selected>Choose client name</option>-->
+<!--      <option value="NF">NF</option>-->
+<!--      <option value="NAC">NAC</option>-->
+<!--      <option value="KVB">KVB</option>-->
+<!--      <option value="IB">IB</option>-->
+<!--    </select>-->
+
+<!--    <label for="module-name">Module Name:</label>-->
+<!--    <select id="module-name" name="module-name" required>-->
+<!--      <option value="" disabled selected>Choose module name</option>-->
+<!--      <option value="Vendor">Vendor</option>-->
+<!--      <option value="ECF">ECF</option>-->
+<!--      <option value="AP">AP</option>-->
+<!--    </select>-->
+
+<!--    <label for="Environment">Environment:</label>-->
+<!--    <select id="Environment" name="Environment" required>-->
+<!--      <option value="" disabled selected>Choose Environment</option>-->
+<!--      <option value="DO">DO</option>-->
+<!--      <option value="SIT">SIT</option>-->
+<!--      <option value="UAT">UAT</option>-->
+<!--    </select>-->
+
+<!--    <label>Environment Url:</label>-->
+<!--    <input type="url" id="env-url" name="env-url" placeholder="https://example.com">-->
+
+<!--    <label>Test Scenario Name:</label>-->
+<!--    <input type="text" id="scenario-name" name="scenario-name" placeholder="Scenario Name" required>-->
+<!--  </div>-->
+
+<!--  <h2>Test Data Inputs</h2>-->
+
+<!--  <div class="btn-group">-->
+<!--    <button type="button" id="add-fields-button">Add Fields for input</button>-->
+<!--    <button type="button" id="clear-fields-button">Clear</button>-->
+<!--    <input type="submit" value="Submit" id="submit">-->
+<!--  </div>-->
+
+<!--  <table id="dynamic-fields">-->
+<!--    <thead>-->
+<!--      <tr>-->
+<!--        <th>Formcontrol Name</th>-->
+<!--        <th>Placeholder Name</th>-->
+<!--        <th>ID</th>-->
+<!--        <th>Screen Name</th>-->
+<!--        <th>Delete</th>-->
+<!--      </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--      <tr class="row default-row">-->
+<!--        <td>-->
+<!--          <input type="text" name="formcontrol_key[]" placeholder="Key" style="width:48%;" class="curved-input">-->
+<!--          <input type="text" name="formcontrol_value[]" placeholder="Value" style="width:48%;" class="curved-input">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <input type="text" name="Placeholder_key[]" placeholder="Key" style="width:48%;" class="curved-input">-->
+<!--          <input type="text" name="Placeholder_value[]" placeholder="Value" style="width:48%;" class="curved-input">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <input type="text" name="ID_key[]" placeholder="Key" style="width:48%;" class="curved-input">-->
+<!--          <input type="text" name="ID_value[]" placeholder="Value" style="width:48%;" class="curved-input">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <input type="text" name="screenname[]" placeholder="Screen name"  style="width:80%;" class="curved-input">-->
+<!--        </td>-->
+<!--        <td>-->
+<!--         <button type="button" class="delete-btn">Delete</button>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</form>-->
+
+<!--<pre id="json-output"></pre>-->
+
+<!--<script>-->
+<!--function addFields() {-->
+<!--  const dynamicFields = document.getElementById("dynamic-fields").querySelector("tbody");-->
+
+<!--  const row = document.createElement("tr");-->
+<!--  row.className = "row";-->
+
+<!--  row.innerHTML = `-->
+<!--    <td>-->
+<!--      <input type="text" name="formcontrol_key[]" placeholder="Key" style="width:48%;" class="curved-input">-->
+<!--      <input type="text" name="formcontrol_value[]" placeholder="Value" style="width:48%;" class="curved-input">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <input type="text" name="Placeholder_key[]" placeholder="Key" style="width:48%;" class="curved-input">-->
+<!--      <input type="text" name="Placeholder_value[]" placeholder="Value" style="width:48%;" class="curved-input">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--     <input type="text" name="ID_key[]" placeholder="Key" style="width:48%;" class="curved-input">-->
+<!--     <input type="text" name="ID_value[]" placeholder="Value" style="width:48%;" class="curved-input">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <input type="text" name="screenname[]" placeholder="Screen name" required style="width:80%;" class="curved-input">-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <button type="button" class="delete-btn">Delete</button>-->
+<!--    </td>-->
+<!--  `;-->
+<!--  dynamicFields.appendChild(row);-->
+<!--}-->
+
+<!--function clearLastRow() {-->
+<!--  const dynamicFields = document.getElementById("dynamic-fields").querySelector("tbody");-->
+<!--  const rows = dynamicFields.querySelectorAll("tr");-->
+<!--  if (rows.length > 1) {-->
+<!--    dynamicFields.removeChild(rows[rows.length - 1]);-->
+<!--  } else {-->
+<!--    alert("Can't remove the last row.");-->
+<!--  }-->
+<!--}-->
+
+<!--document.getElementById("add-fields-button").addEventListener("click", addFields);-->
+<!--document.getElementById("clear-fields-button").addEventListener("click", clearLastRow);-->
+
+<!--document.getElementById("dynamic-fields").addEventListener("click", function(event) {-->
+<!--  if (event.target && event.target.classList.contains("delete-btn")) {-->
+<!--    const row = event.target.closest("tr");-->
+<!--    const tbody = row.parentNode;-->
+<!--    const rows = tbody.querySelectorAll("tr");-->
+
+<!--    if (rows.length > 1) {-->
+<!--      tbody.removeChild(row);-->
+<!--    } else {-->
+<!--      alert("Can't remove the last row.");-->
+<!--    }-->
+<!--  }-->
+<!--});-->
+
+<!--document.getElementById("main-form").addEventListener("submit", function(event) {-->
+<!--  event.preventDefault();-->
+<!--  // your existing submission code goes here-->
+<!--  alert("Form submitted!");-->
+<!--});-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Automation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding-top: 60px; /* Offset for fixed navbar */
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background-color: #2c3e50;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 150%;
+      margin: 0;
+      color: white;
+    }
+
+    #template {
+      display: block;
+      width: 100%;
+      max-width: 1000px;
+      margin: 20px auto;
+      background-color: #ccd1d2;
+      padding: 30px;
+      border-radius: 40px;
+
+    }
+
+    label {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .tempalteinput[type="text"],
+    input[type="url"],
+    select {
+      width: 160px;
+      margin: 10px 10px 10px 10px;
+      padding: 5px;
+    }
+
+
+
+
+    .row default-row
+    {
+    width: 160px;
+      margin: 0px;
+      padding: 5px;
+
+    }
+
+
+
+  button,
+    #submit {
+    background-color: #e6e5da;
+    border: 1px solid #ccc;
+    color: blue;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin: 10px;
+    transition: transform 0.2s ease, background-color 0.2s ease; /* added animation */
+  }
+
+  button:hover,
+    #submit:hover {
+      background-color: #d0d0b9; /* subtle color change on hover */
+      transform: scale(1.1);      /* animate size up */
+    }
+
+    button:active,
+    #submit:active {
+      transform: scale(0.95);     /* quick shrink on click */
+    }
+
+
+    h3, h2 {
+      text-align: center;
+    }
+
+    #json-output {
+      white-space: pre-wrap;
+      background: #f8f8f8;
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 90%;
+      margin: 22px auto;
+    }
+
+    .btn-group {
+      text-align: center;
+
+
+    }
+
+    table#dynamic-fields {
+      width: 75%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #f0f8ff;
+    }
+
+    table#dynamic-fields th,
+    table#dynamic-fields td {
+      border: 3px solid #ccc;
+      padding: 3px;
+      text-align: center;
+    }
+
+    .delete-btn {
+  background-color: #8A2BE2; /* nice blue */
+  border: none;
+  cursor: pointer;
+  width: 70px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: yellow;}
+
+.delete-btn:hover {
+  background-color: #e74c3c; /* red on hover */
+  transform: scale(1.1); /* animate size up */
+}
+
+<!--.delete-btn:active {-->
+<!--  transform: scale(0.95); /* quick shrink on click */-->
+}
+
+    .curved-input {
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      padding: 4px 6px;
+      box-sizing: border-box;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right:0;
+      width: 50px;
+      height: 100%;
+      background-color: #2c3e50;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    .sidebar-right {
+      position: fixed;
+      top: 0;
+
+      right:0;
+      width: 50px;
+      height: 100%;
+      background-color: #2c3e50;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+      z-index: 1000;}
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <h1>Automation Template</h1>
+</div>
+<div class ="sidebar">
+</div>
+<div class="sidebar-right">
+
+</div>
+
+
+
+<form id="main-form">
+  <div class="template" id="template">
+    <label for="client-name">Client Name</label>
+    <select id="client-name" name="client-name" required style="width:17%;" class="curved-input">
+      <option value="" disabled selected>Choose client name</option>
+      <option value="NF">NF</option>
+      <option value="NAC">NAC</option>
+      <option value="KVB">KVB</option>
+      <option value="IB">IB</option>
+    </select>
+
+    <label for="module-name">Module Name</label>
+    <select id="module-name" name="module-name" required style="width:17%;" class="curved-input">
+      <option value="" disabled selected>Choose module name</option>
+      <option value="Vendor">Vendor</option>
+      <option value="ECF">ECF</option>
+      <option value="AP">AP</option>
+    </select>
+
+    <label for="Environment">Environment</label>
+    <select id="Environment" name="Environment" required style="width:17%;" class="curved-input">
+      <option value="" disabled selected>Choose Environment</option>
+      <option value="DO">DO</option>
+      <option value="SIT">SIT</option>
+      <option value="UAT">UAT</option>
+    </select>
+
+    <label>Environment Url</label>
+    <input type="url" id="env-url" name="env-url" placeholder="https://example.com" style="width:20%;" class="curved-input">
+
+    <label>Test Scenario Name</label>
+    <input type="text" id="scenario-name" name="scenario-name" placeholder="Scenario Name" required style="width:20%;" class="curved-input">
+  </div>
+
+  <h2>Test Data Inputs</h2>
+
+  <div class="btn-group">
+    <button type="button" id="add-fields-button">Add Fields for input</button>
+    <button type="button" id="clear-fields-button">Clear</button>
+    <input type="submit" value="Submit" id="submit">
+  </div>
+
+  <table id="dynamic-fields">
+    <thead>
+      <tr>
+        <th>Formcontrol Name</th>
+        <th>Placeholder Name</th>
+        <th>ID</th>
+        <th>Screen Name</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    <div class="template" id="addfileds">
+      <tr class="row default-row">
+        <td>
+          <input type="text" name="formcontrol_key[]" placeholder="Key" style="width:48%;" class="curved-input">
+          <input type="text" name="formcontrol_value[]" placeholder="Value" style="width:48%;" class="curved-input">
+        </td>
+        <td>
+          <input type="text" name="Placeholder_key[]" placeholder="Key" style="width:48%;" class="curved-input">
+          <input type="text" name="Placeholder_value[]" placeholder="Value" style="width:48%;" class="curved-input">
+        </td>
+        <td>
+          <input type="text" name="ID_key[]" placeholder="Key" style="width:48%;" class="curved-input">
+          <input type="text" name="ID_value[]" placeholder="Value" style="width:48%;" class="curved-input">
+        </td>
+        <td>
+          <input type="text" name="screenname[]" placeholder="Screen name"  style="width:80%;" class="curved-input">
+        </td>
+        <td>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+         <button type="button" class="delete-btn" title="Delete">
+  <i class="fas fa-trash"></i>
+</button>
+        </td>
+      </tr>
+       </div>
+    </tbody>
+
+  </table>
+</form>
+
+<pre id="json-output"></pre>
+
+<script>
+function addFields() {
+  const dynamicFields = document.getElementById("dynamic-fields").querySelector("tbody");
+
+  const row = document.createElement("tr");
+  row.className = "row";
+
+  row.innerHTML = `
+    <td>
+      <input type="text" name="formcontrol_key[]" placeholder="Key" style="width:48%;" class="curved-input">
+      <input type="text" name="formcontrol_value[]" placeholder="Value" style="width:48%;" class="curved-input">
+    </td>
+    <td>
+      <input type="text" name="Placeholder_key[]" placeholder="Key" style="width:48%;" class="curved-input">
+      <input type="text" name="Placeholder_value[]" placeholder="Value" style="width:48%;" class="curved-input">
+    </td>
+    <td>
+     <input type="text" name="ID_key[]" placeholder="Key" style="width:48%;" class="curved-input">
+     <input type="text" name="ID_value[]" placeholder="Value" style="width:48%;" class="curved-input">
+    </td>
+    <td>
+      <input type="text" name="screenname[]" placeholder="Screen name" required style="width:80%;" class="curved-input">
+    </td>
+    <td>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+         <button type="button" class="delete-btn" title="Delete">
+  <i class="fas fa-trash"></i>
+</button>
+    </td>
+  `;
+  dynamicFields.appendChild(row);
+}
+
+function clearLastRow() {
+  const dynamicFields = document.getElementById("dynamic-fields").querySelector("tbody");
+  const rows = dynamicFields.querySelectorAll("tr");
+  if (rows.length > 1) {
+    dynamicFields.removeChild(rows[rows.length - 1]);
+  } else {
+    alert("Can't remove the last row.");
+  }
+}
+
+document.getElementById("add-fields-button").addEventListener("click", addFields);
+document.getElementById("clear-fields-button").addEventListener("click", clearLastRow);
+
+document.getElementById("dynamic-fields").addEventListener("click", function(event) {
+  if (event.target && event.target.classList.contains("delete-btn")) {
+    const row = event.target.closest("tr");
+    const tbody = row.parentNode;
+    const rows = tbody.querySelectorAll("tr");
+
+    if (rows.length > 1) {
+      tbody.removeChild(row);
+    } else {
+      alert("Can't remove the last row.");
+    }
+  }
+});
+
+document.getElementById("main-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  alert("Form submitted!");
+});
+</script>
+
+</body>
+</html>
+

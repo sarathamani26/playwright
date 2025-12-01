@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Automation Run</title>
+  <style>
+    /* your existing styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F2F2F2;
+      margin: 0;
+      padding: 0;
+    }
+    .main-container {
+      width: 600px;
+      margin: 50px auto;
+      background-color: white;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    select {
+      background-color: white;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .action-button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+    }
+    .run-button { background-color: #4CAF50; }
+    .run-button:hover { background-color: #45A049; }
+    .refresh-button { background-color: #2196F3; }
+    .refresh-button:hover { background-color: #1976D2; }
+    .stop-button { background-color: #F44336; }
+    .stop-button:hover { background-color: #D32F2F; }
+    .response-box {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+      white-space: pre-wrap; /* preserve line breaks */
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h2>Automation RUN</h2>
+    <div class="form-group">
+      <label for="testcase">Testcase Code</label>
+      <input type="text" id="testcase" name="testcase" placeholder="Enter Test Case Code" />
+    </div>
+    <div class="form-group">
+      <label for="client">Client Name</label>
+      <select id="client" name="client">
+        <option value="" disabled selected>Choose the client</option>
+        <option value="NAC">NAC</option>
+        <option value="NF">NF</option>
+        <option value="KVB">KVB</option>
+        <option value="IB">IB</option>
+        <option value="WR">WR</option>
+      </select>
+    </div>
+    <div class="button-group">
+      <button class="action-button run-button">RUN</button>
+      <button class="action-button refresh-button">REFRESH</button>
+      <button class="action-button stop-button">STOP</button>
+    </div>
+    <div class="response-box" id="response"></div>
+  </div>
+
+  <script>
+    let pollIntervalId = null;
+
+    document.querySelector(".run-button").addEventListener("click", function () {
+      const testcasecode = document.getElementById("testcase").value.trim();
+      const clientname = document.getElementById("client").value.trim();
+
+      if (!testcasecode || !clientname) {
+        alert("Please enter both Testcase Code and Client Name.");
+        return;
+      }
+
+      // Start the run process
+      const url = `/nfserv/automation_runprocess?Testcasecode=${encodeURIComponent(testcasecode)}&clientname=${encodeURIComponent(clientname)}`;
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response from backend:", data);
+        document.getElementById("response").innerText = "✅ Run started successfully...\nFetching summary...";
+
+        // Start polling for summary every 3 seconds
+        startPollingSummary();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        document.getElementById("response").innerText = "❌ Error: Something went wrong!";
+      });
+    });
+
+    document.querySelector(".refresh-button").addEventListener("click", function () {
+      document.getElementById("testcase").value = "";
+      document.getElementById("client").selectedIndex = 0; // reset dropdown
+      document.getElementById("response").innerText = "";
+      stopPollingSummary();
+    });
+
+    document.querySelector(".stop-button").addEventListener("click", function () {
+      const url = `/nfserv/automation_stop/`;
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Stop response:", data);
+        document.getElementById("response").innerText = "🛑 Stopped: " + JSON.stringify(data);
+        stopPollingSummary();
+      })
+      .catch((error) => {
+        console.error("Error stopping:", error);
+        document.getElementById("response").innerText = "❌ Error stopping automation!";
+      });
+    });
+
+    function startPollingSummary() {
+      if (pollIntervalId) return; // prevent multiple intervals
+
+      pollIntervalId = setInterval(() => {
+        fetch('/nfserv/run_process_summary')
+          .then((response) => response.json())
+          .then((summaryData) => {
+            console.log("Summary data:", summaryData);
+
+            // Format the summary nicely
+            let summaryText = formatSummary(summaryData);
+
+            document.getElementById("response").innerText = summaryText;
+
+            // Optionally, if your API returns a "status" that indicates completion, stop polling:
+            // if (summaryData.status === "Completed") {
+            //   stopPollingSummary();
+            // }
+          })
+          .catch((error) => {
+            console.error("Error fetching summary:", error);
+            document.getElementById("response").innerText = "❌ Error fetching summary.";
+          });
+      }, 3000); // poll every 3 seconds
+    }
+
+    function stopPollingSummary() {
+      if (pollIntervalId) {
+        clearInterval(pollIntervalId);
+        pollIntervalId = null;
+      }
+    }
+
+    function formatSummary(summary) {
+      // Adjust based on the actual JSON structure of your summary API response
+      // Example: If summary is an object with keys and status messages
+
+      if (!summary || typeof summary !== "object") return "No summary data.";
+
+      let text = "";
+      // Let's try to pretty print summary keys and values:
+      for (const [key, value] of Object.entries(summary)) {
+        if (typeof value === "object") {
+          text += `${key}:\n`;
+          for (const [k, v] of Object.entries(value)) {
+            text += `  ${k}: ${v}\n`;
+          }
+        } else {
+          text += `${key}: ${value}\n`;
+        }
+      }
+      return text.trim();
+    }
+
+    // Utility to get CSRF token from cookie
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === name + "=") {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  </script>
+</body>
+</html>
+
+
+

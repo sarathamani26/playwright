@@ -1,0 +1,951 @@
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Test Report</title>-->
+<!--    <style>-->
+<!--        @page {-->
+<!--            size: A4;-->
+<!--            margin: 20mm;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f9f9f9;-->
+<!--            font-size: 12px;-->
+<!--            color: #000;-->
+<!--            margin: 0;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        /* ===== WATERMARK ===== */-->
+<!--        .watermark {-->
+<!--            position: fixed;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%) rotate(-30deg);-->
+<!--            font-size: 90px;-->
+<!--            font-weight: bold;-->
+<!--            color: rgba(200, 0, 0, 0.1);-->
+<!--            text-transform: uppercase;-->
+<!--            letter-spacing: 10px;-->
+<!--            white-space: nowrap;-->
+<!--            z-index: 0;-->
+<!--            background: linear-gradient(90deg, #ff0000, #ff00ff, #ff9900, #ff0000);-->
+<!--            background-size: 400%;-->
+<!--            -webkit-background-clip: text;-->
+<!--            -webkit-text-fill-color: transparent;-->
+<!--            animation: glitter 5s linear infinite;-->
+<!--            user-select: none;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        @keyframes glitter {-->
+<!--            0% { background-position: 0% 50%; }-->
+<!--            50% { background-position: 100% 50%; }-->
+<!--            100% { background-position: 0% 50%; }-->
+<!--        }-->
+
+<!--        /* ===== REPORT CONTAINER ===== */-->
+<!--        .report-container {-->
+<!--            background-color: #fff;-->
+<!--            border: 2px solid #c00;-->
+<!--            border-radius: 6px;-->
+<!--            padding: 15px 25px;-->
+<!--            width: 100%;-->
+<!--            box-sizing: border-box;-->
+<!--            margin: 0 auto 40px auto;-->
+<!--            position: relative;-->
+<!--            z-index: 1;-->
+<!--            page-break-inside: avoid;-->
+<!--            overflow: hidden;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            background-color: #f2f2f2;-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 8px;-->
+<!--            margin: 0 0 15px 0;-->
+<!--            font-size: 18px;-->
+<!--            font-weight: bold;-->
+<!--            text-transform: uppercase;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin-bottom: 20px;-->
+<!--            font-size: 12px;-->
+<!--        }-->
+
+<!--        td {-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 6px 10px;-->
+<!--            vertical-align: top;-->
+<!--        }-->
+
+<!--        td.label {-->
+<!--            width: 35%;-->
+<!--            font-weight: bold;-->
+<!--            background-color: #fff6f6;-->
+<!--        }-->
+
+<!--        .field strong {-->
+<!--            display: block;-->
+<!--            margin-bottom: 5px;-->
+<!--            color: #222;-->
+<!--        }-->
+
+<!--        .box {-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 8px;-->
+<!--            background-color: #fff;-->
+<!--            overflow-wrap: break-word;-->
+<!--            word-wrap: break-word;-->
+<!--            white-space: pre-wrap;-->
+<!--            box-sizing: border-box;-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        .screenshot {-->
+<!--            max-width: 100%;-->
+<!--            border: 1px solid #ccc;-->
+<!--            margin-top: 8px;-->
+<!--            cursor: pointer;-->
+<!--            display: block;-->
+<!--            page-break-before: always; /* ✅ Forces screenshot to start on a new page */-->
+<!--        }-->
+
+<!--        /* Status Colors */-->
+<!--        .status-success {-->
+<!--            color: green;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--        .status-fail {-->
+<!--            color: red;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        /* Lightbox */-->
+<!--        #lightbox {-->
+<!--            display: none;-->
+<!--            position: fixed;-->
+<!--            top: 0; left: 0;-->
+<!--            width: 100vw;-->
+<!--            height: 100vh;-->
+<!--            background: rgba(0,0,0,0.8);-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            z-index: 1000;-->
+<!--        }-->
+
+<!--        #lightbox img {-->
+<!--            max-width: 90%;-->
+<!--            max-height: 90%;-->
+<!--            border: 4px solid white;-->
+<!--            border-radius: 8px;-->
+<!--        }-->
+
+<!--        #lightbox .close {-->
+<!--            position: absolute;-->
+<!--            top: 20px;-->
+<!--            right: 30px;-->
+<!--            color: white;-->
+<!--            font-size: 30px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        /* Print adjustments */-->
+<!--        @media print {-->
+<!--            body {-->
+<!--                background: #fff;-->
+<!--            }-->
+<!--            .watermark {-->
+<!--                color: rgba(150, 150, 150, 0.1);-->
+<!--                -webkit-text-fill-color: rgba(150, 150, 150, 0.1);-->
+<!--                background: none;-->
+<!--                animation: none;-->
+<!--            }-->
+<!--            .report-container {-->
+<!--                border-color: #000;-->
+<!--                box-shadow: none;-->
+<!--                page-break-inside: avoid !important;-->
+<!--                overflow: hidden;-->
+<!--            }-->
+<!--            h2, td {-->
+<!--                border-color: #000;-->
+<!--            }-->
+<!--            .box {-->
+<!--                border-color: #000;-->
+<!--            }-->
+<!--            .screenshot {-->
+<!--                page-break-before: always !important; /* ✅ Ensures new page during print */-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="watermark">TEST REPORT</div>-->
+
+<!--{% for record in records %}-->
+<!--<div class="report-container">-->
+<!--    <h2>Test Report</h2>-->
+
+<!--    <table>-->
+<!--        <tr><td class="label">Client Name</td><td>{{ record.client_name }}</td></tr>-->
+<!--        <tr><td class="label">Module</td><td>{{ record.Project_module }}</td></tr>-->
+<!--        <tr><td class="label">Test Code</td><td>{{ record.Testcase_code }}</td></tr>-->
+<!--        <tr><td class="label">Test Scenario</td><td>{{ record.Test_scnarios }}</td></tr>-->
+<!--        <tr><td class="label">Result</td><td>{{ record.Testcase_Result }}</td></tr>-->
+<!--        <tr><td class="label">Date</td><td>{{ record.created_date }}</td></tr>-->
+<!--        <tr>-->
+<!--            <td class="label">Status</td>-->
+<!--            <td>-->
+<!--                {% if record.status|lower == "success" %}-->
+<!--                    <span class="status-success">{{ record.status }}</span>-->
+<!--                {% elif record.status|lower == "fail" %}-->
+<!--                    <span class="status-fail">{{ record.status }}</span>-->
+<!--                {% else %}-->
+<!--                    {{ record.status }}-->
+<!--                {% endif %}-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+<!--    <div class="field">-->
+<!--        <strong>Input:</strong>-->
+<!--        <div class="box">{{ record.inputdata }}</div>-->
+<!--    </div>-->
+
+<!--    <div class="field">-->
+<!--        <strong>Output:</strong>-->
+<!--        <div class="box">{{ record.outputdata }}</div>-->
+<!--    </div>-->
+
+<!--    {% if record.base64_image %}-->
+<!--    <div class="field">-->
+<!--        <strong>Screenshot:</strong><br>-->
+<!--        <img class="screenshot"-->
+<!--             src="data:image/png;base64,{{ record.base64_image }}"-->
+<!--             alt="Screenshot"-->
+<!--             onclick="openLightbox(this)">-->
+<!--    </div>-->
+<!--    {% endif %}-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+<!--&lt;!&ndash; Lightbox &ndash;&gt;-->
+<!--<div id="lightbox" onclick="closeLightbox()">-->
+<!--    <span class="close">&times;</span>-->
+<!--    <img id="lightbox-img" src="" alt="Full Screenshot">-->
+<!--</div>-->
+
+<!--<script>-->
+<!--const lightbox = document.getElementById('lightbox');-->
+<!--const lightboxImg = document.getElementById('lightbox-img');-->
+
+<!--function openLightbox(img) {-->
+<!--    lightboxImg.src = img.src;-->
+<!--    lightbox.style.display = 'flex';-->
+<!--}-->
+<!--function closeLightbox() {-->
+<!--    lightbox.style.display = 'none';-->
+<!--}-->
+<!--lightboxImg.addEventListener('click', e => e.stopPropagation());-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Test Report</title>-->
+<!--    <style>-->
+<!--        @page {-->
+<!--            size: A4;-->
+<!--            margin: 20mm;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f9f9f9;-->
+<!--            font-size: 12px;-->
+<!--            color: #000;-->
+<!--            margin: 0;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        /* ===== WATERMARK ===== */-->
+<!--        .watermark {-->
+<!--            position: fixed;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%) rotate(-30deg);-->
+<!--            font-size: 90px;-->
+<!--            font-weight: bold;-->
+<!--            color: rgba(200, 0, 0, 0.1);-->
+<!--            text-transform: uppercase;-->
+<!--            letter-spacing: 10px;-->
+<!--            white-space: nowrap;-->
+<!--            z-index: 0;-->
+<!--            background: linear-gradient(90deg, #ff0000, #ff00ff, #ff9900, #ff0000);-->
+<!--            background-size: 400%;-->
+<!--            -webkit-background-clip: text;-->
+<!--            -webkit-text-fill-color: transparent;-->
+<!--            animation: glitter 5s linear infinite;-->
+<!--            user-select: none;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        @keyframes glitter {-->
+<!--            0% { background-position: 0% 50%; }-->
+<!--            50% { background-position: 100% 50%; }-->
+<!--            100% { background-position: 0% 50%; }-->
+<!--        }-->
+
+<!--        /* ===== REPORT CONTAINER ===== */-->
+<!--        .report-container {-->
+<!--            background-color: #fff;-->
+<!--            border: 2px solid #c00;-->
+<!--            border-radius: 6px;-->
+<!--            padding: 15px 25px;-->
+<!--            width: 100%;-->
+<!--            box-sizing: border-box;-->
+<!--            margin: 0 auto 40px auto;-->
+<!--            position: relative;-->
+<!--            z-index: 1;-->
+<!--            page-break-inside: avoid;-->
+<!--            overflow: hidden;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            background-color: #f2f2f2;-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 8px;-->
+<!--            margin: 0 0 15px 0;-->
+<!--            font-size: 18px;-->
+<!--            font-weight: bold;-->
+<!--            text-transform: uppercase;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin-bottom: 20px;-->
+<!--            font-size: 12px;-->
+<!--        }-->
+
+<!--        td {-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 6px 10px;-->
+<!--            vertical-align: top;-->
+<!--        }-->
+
+<!--        td.label {-->
+<!--            width: 35%;-->
+<!--            font-weight: bold;-->
+<!--            background-color: #fff6f6;-->
+<!--        }-->
+
+<!--        .field strong {-->
+<!--            display: block;-->
+<!--            margin-bottom: 5px;-->
+<!--            color: #222;-->
+<!--        }-->
+
+<!--        /* Box wrapping long content */-->
+<!--        .box {-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 8px;-->
+<!--            background-color: #fff;-->
+<!--            overflow-wrap: break-word;-->
+<!--            word-wrap: break-word;-->
+<!--            white-space: pre-wrap;-->
+<!--            box-sizing: border-box;-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        /* Group input/output together */-->
+<!--        .io-group {-->
+<!--            page-break-inside: avoid;  /* ✅ Prevent input/output from splitting */-->
+<!--        }-->
+
+<!--        /* Screenshot styling */-->
+<!--        .screenshot {-->
+<!--            max-width: 100%;-->
+<!--            border: 1px solid #ccc;-->
+<!--            margin-top: 8px;-->
+<!--            cursor: pointer;-->
+<!--            display: block;-->
+<!--            page-break-before: always; /* ✅ Start screenshot on new page */-->
+<!--        }-->
+
+<!--        /* Status Colors */-->
+<!--        .status-success {-->
+<!--            color: green;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--        .status-fail {-->
+<!--            color: red;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        /* ===== PAGE NUMBERS ===== */-->
+<!--        .page-number {-->
+<!--            position: fixed;-->
+<!--            bottom: 10mm;-->
+<!--            right: 20mm;-->
+<!--            font-size: 10px;-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        @media print {-->
+<!--            body {-->
+<!--                background: #fff;-->
+<!--            }-->
+
+<!--            .watermark {-->
+<!--                color: rgba(150, 150, 150, 0.1);-->
+<!--                -webkit-text-fill-color: rgba(150, 150, 150, 0.1);-->
+<!--                background: none;-->
+<!--                animation: none;-->
+<!--            }-->
+
+<!--            .report-container {-->
+<!--                border-color: #000;-->
+<!--                box-shadow: none;-->
+<!--                page-break-inside: avoid !important;-->
+<!--                overflow: hidden;-->
+<!--            }-->
+
+<!--            h2, td {-->
+<!--                border-color: #000;-->
+<!--            }-->
+
+<!--            .box {-->
+<!--                border-color: #000;-->
+<!--            }-->
+
+<!--            .screenshot {-->
+<!--                page-break-before: always !important;-->
+<!--            }-->
+
+<!--            /* Add page numbers for print */-->
+<!--            @page {-->
+<!--                @bottom-right {-->
+<!--                    content: "Page " counter(page);-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Lightbox */-->
+<!--        #lightbox {-->
+<!--            display: none;-->
+<!--            position: fixed;-->
+<!--            top: 0; left: 0;-->
+<!--            width: 100vw;-->
+<!--            height: 100vh;-->
+<!--            background: rgba(0,0,0,0.8);-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            z-index: 1000;-->
+<!--        }-->
+
+<!--        #lightbox img {-->
+<!--            max-width: 90%;-->
+<!--            max-height: 90%;-->
+<!--            border: 4px solid white;-->
+<!--            border-radius: 8px;-->
+<!--        }-->
+
+<!--        #lightbox .close {-->
+<!--            position: absolute;-->
+<!--            top: 20px;-->
+<!--            right: 30px;-->
+<!--            color: white;-->
+<!--            font-size: 30px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="watermark">TEST REPORT</div>-->
+
+<!--{% for record in records %}-->
+<!--<div class="report-container">-->
+<!--    <h2>Test Report</h2>-->
+
+<!--    <table>-->
+<!--        <tr><td class="label">Client Name</td><td>{{ record.client_name }}</td></tr>-->
+<!--        <tr><td class="label">Module</td><td>{{ record.Project_module }}</td></tr>-->
+<!--        <tr><td class="label">Test Code</td><td>{{ record.Testcase_code }}</td></tr>-->
+<!--        <tr><td class="label">Test Scenario</td><td>{{ record.Test_scnarios }}</td></tr>-->
+<!--        <tr><td class="label">Result</td><td>{{ record.Testcase_Result }}</td></tr>-->
+<!--        <tr><td class="label">Date</td><td>{{ record.created_date }}</td></tr>-->
+<!--        <tr>-->
+<!--            <td class="label">Status</td>-->
+<!--            <td>-->
+<!--                {% if record.status|lower == "success" %}-->
+<!--                    <span class="status-success">{{ record.status }}</span>-->
+<!--                {% elif record.status|lower == "fail" %}-->
+<!--                    <span class="status-fail">{{ record.status }}</span>-->
+<!--                {% else %}-->
+<!--                    {{ record.status }}-->
+<!--                {% endif %}-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+<!--    &lt;!&ndash; Input & Output together &ndash;&gt;-->
+<!--    <div class="io-group">-->
+<!--        <div class="field">-->
+<!--            <strong>Input:</strong>-->
+<!--            <div class="box">{{ record.inputdata }}</div>-->
+<!--        </div>-->
+
+<!--        <div class="field">-->
+<!--            <strong>Output:</strong>-->
+<!--            <div class="box">{{ record.outputdata }}</div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    {% if record.base64_image %}-->
+<!--    <div class="field">-->
+<!--        <strong>Screenshot:</strong><br>-->
+<!--        <img class="screenshot"-->
+<!--             src="data:image/png;base64,{{ record.base64_image }}"-->
+<!--             alt="Screenshot"-->
+<!--             onclick="openLightbox(this)">-->
+<!--    </div>-->
+<!--    {% endif %}-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+<!--&lt;!&ndash; Lightbox &ndash;&gt;-->
+<!--<div id="lightbox" onclick="closeLightbox()">-->
+<!--    <span class="close">&times;</span>-->
+<!--    <img id="lightbox-img" src="" alt="Full Screenshot">-->
+<!--</div>-->
+
+<!--<div class="page-number">Page <span class="pagenum"></span></div>-->
+
+<!--<script>-->
+<!--const lightbox = document.getElementById('lightbox');-->
+<!--const lightboxImg = document.getElementById('lightbox-img');-->
+
+<!--function openLightbox(img) {-->
+<!--    lightboxImg.src = img.src;-->
+<!--    lightbox.style.display = 'flex';-->
+<!--}-->
+<!--function closeLightbox() {-->
+<!--    lightbox.style.display = 'none';-->
+<!--}-->
+<!--lightboxImg.addEventListener('click', e => e.stopPropagation());-->
+
+<!--// JS-based page number fallback for browsers that don't support @page counter-->
+<!--window.onload = function() {-->
+<!--    let pages = document.querySelectorAll('.page-number');-->
+<!--    pages.forEach((page, index) => {-->
+<!--        page.querySelector('.pagenum').innerText = index + 1;-->
+<!--    });-->
+<!--};-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Test Report</title>-->
+<!--    <style>-->
+<!--        @page {-->
+<!--            size: A4;-->
+<!--            margin: 20mm;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f9f9f9;-->
+<!--            font-size: 12px;-->
+<!--            color: #000;-->
+<!--            margin: 0;-->
+<!--            position: relative;-->
+<!--            counter-reset: page;-->
+<!--        }-->
+
+<!--        /* ===== WATERMARK ===== */-->
+<!--        .watermark {-->
+<!--            position: fixed;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%) rotate(-30deg);-->
+<!--            font-size: 90px;-->
+<!--            font-weight: bold;-->
+<!--            color: rgba(200, 0, 0, 0.1);-->
+<!--            text-transform: uppercase;-->
+<!--            letter-spacing: 10px;-->
+<!--            white-space: nowrap;-->
+<!--            z-index: 0;-->
+<!--            background: linear-gradient(90deg, #ff0000, #ff00ff, #ff9900, #ff0000);-->
+<!--            background-size: 400%;-->
+<!--            -webkit-background-clip: text;-->
+<!--            -webkit-text-fill-color: transparent;-->
+<!--            animation: glitter 5s linear infinite;-->
+<!--            user-select: none;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        @keyframes glitter {-->
+<!--            0% { background-position: 0% 50%; }-->
+<!--            50% { background-position: 100% 50%; }-->
+<!--            100% { background-position: 0% 50%; }-->
+<!--        }-->
+
+<!--        /* ===== PAGE BLOCK ===== */-->
+<!--        .page-block {-->
+<!--            background-color: #fff;-->
+<!--            border: 2px solid #c00;-->
+<!--            border-radius: 6px;-->
+<!--            padding: 15px 25px;-->
+<!--            width: calc(100% - 40mm); /* keep margin balance */-->
+<!--            margin: 20mm auto;-->
+<!--            box-sizing: border-box;-->
+<!--            position: relative;-->
+<!--            page-break-after: always;-->
+<!--        }-->
+
+<!--        .page-block:last-child {-->
+<!--            page-break-after: auto;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            background-color: #f2f2f2;-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 8px;-->
+<!--            margin: 0 0 15px 0;-->
+<!--            font-size: 18px;-->
+<!--            font-weight: bold;-->
+<!--            text-transform: uppercase;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin-bottom: 20px;-->
+<!--            font-size: 12px;-->
+<!--        }-->
+
+<!--        td {-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 6px 10px;-->
+<!--            vertical-align: top;-->
+<!--        }-->
+
+<!--        td.label {-->
+<!--            width: 35%;-->
+<!--            font-weight: bold;-->
+<!--            background-color: #fff6f6;-->
+<!--        }-->
+
+<!--        .field strong {-->
+<!--            display: block;-->
+<!--            margin-bottom: 5px;-->
+<!--            color: #222;-->
+<!--        }-->
+
+<!--        .box {-->
+<!--            border: 1px solid #c00;-->
+<!--            padding: 8px;-->
+<!--            background-color: #fff;-->
+<!--            overflow-wrap: break-word;-->
+<!--            word-wrap: break-word;-->
+<!--            white-space: pre-wrap;-->
+<!--            box-sizing: border-box;-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        /* Keep Input & Output together */-->
+<!--        .io-group {-->
+<!--            page-break-inside: avoid;-->
+<!--        }-->
+
+<!--        /* Screenshot on next page */-->
+<!--        .screenshot {-->
+<!--            max-width: 100%;-->
+<!--            border: 1px solid #ccc;-->
+<!--            margin-top: 8px;-->
+<!--            cursor: pointer;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        /* Status Colors */-->
+<!--        .status-success {-->
+<!--            color: green;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--        .status-fail {-->
+<!--            color: red;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        /* Page numbers */-->
+<!--        .page-number {-->
+<!--            position: absolute;-->
+<!--            bottom: 8mm;-->
+<!--            right: 20mm;-->
+<!--            font-size: 11px;-->
+<!--            color: #444;-->
+<!--        }-->
+
+<!--        /* Lightbox */-->
+<!--        #lightbox {-->
+<!--            display: none;-->
+<!--            position: fixed;-->
+<!--            top: 0; left: 0;-->
+<!--            width: 100vw;-->
+<!--            height: 100vh;-->
+<!--            background: rgba(0,0,0,0.8);-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            z-index: 1000;-->
+<!--        }-->
+
+<!--        #lightbox img {-->
+<!--            max-width: 90%;-->
+<!--            max-height: 90%;-->
+<!--            border: 4px solid white;-->
+<!--            border-radius: 8px;-->
+<!--        }-->
+
+<!--        #lightbox .close {-->
+<!--            position: absolute;-->
+<!--            top: 20px;-->
+<!--            right: 30px;-->
+<!--            color: white;-->
+<!--            font-size: 30px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        @media print {-->
+<!--            body {-->
+<!--                background: #fff;-->
+<!--            }-->
+
+<!--            .watermark {-->
+<!--                color: rgba(150, 150, 150, 0.1);-->
+<!--                -webkit-text-fill-color: rgba(150, 150, 150, 0.1);-->
+<!--                background: none;-->
+<!--                animation: none;-->
+<!--            }-->
+
+<!--            .page-block {-->
+<!--                border-color: #000;-->
+<!--                margin: 10mm auto;-->
+<!--                box-shadow: none;-->
+<!--                page-break-after: always;-->
+<!--            }-->
+
+<!--            h2, td, .box {-->
+<!--                border-color: #000;-->
+<!--            }-->
+
+<!--            .page-number::after {-->
+<!--                counter-increment: page;-->
+<!--                content: "Page " counter(page);-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="watermark">TEST REPORT</div>-->
+
+<!--{% for record in records %}-->
+<!--    &lt;!&ndash; PAGE 1: Input + Output &ndash;&gt;-->
+<!--    <div class="page-block">-->
+<!--        <h2>Automation Test Report</h2>-->
+
+<!--        <table>-->
+<!--            <tr><td class="label">Client Name</td><td>{{ record.client_name }}</td></tr>-->
+<!--            <tr><td class="label">Module</td><td>{{ record.Project_module }}</td></tr>-->
+<!--            <tr><td class="label">Test Code</td><td>{{ record.Testcase_code }}</td></tr>-->
+<!--            <tr><td class="label">Test Scenario</td><td>{{ record.Test_scnarios }}</td></tr>-->
+<!--            <tr><td class="label">Result</td><td>{{ record.Testcase_Result }}</td></tr>-->
+<!--            <tr><td class="label">Date</td><td>{{ record.created_date }}</td></tr>-->
+<!--            <tr><td class="label">Remarks</td><td>{{ record.remarks }}</td></tr>-->
+
+<!--            <tr>-->
+<!--                <td class="label">Status</td>-->
+<!--                <td>-->
+<!--                    {% if record.status|lower == "success" %}-->
+<!--                        <span class="status-success">{{ record.status }}</span>-->
+<!--                    {% elif record.status|lower == "fail" %}-->
+<!--                        <span class="status-fail">{{ record.status }}</span>-->
+<!--                    {% else %}-->
+<!--                        {{ record.status }}-->
+<!--                    {% endif %}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </table>-->
+
+<!--        <div class="io-group">-->
+<!--            <div class="field">-->
+<!--                <strong>Input:</strong>-->
+<!--                <div class="box">{{ record.inputdata }}</div>-->
+<!--            </div>-->
+
+<!--            <div class="field">-->
+<!--                <strong>Output:</strong>-->
+<!--                <div class="box">{{ record.outputdata }}</div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="page-number"></div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; PAGE 2: Screenshot &ndash;&gt;-->
+<!--    {% if record.base64_image %}-->
+<!--    <div class="page-block">-->
+<!--        <h2>Screenshot</h2>-->
+<!--        <img class="screenshot"-->
+<!--             src="data:image/png;base64,{{ record.base64_image }}"-->
+<!--             alt="Screenshot"-->
+<!--             onclick="openLightbox(this)">-->
+<!--        <div class="page-number"></div>-->
+<!--    </div>-->
+<!--    {% endif %}-->
+<!--{% endfor %}-->
+
+<!--&lt;!&ndash; Lightbox &ndash;&gt;-->
+<!--<div id="lightbox" onclick="closeLightbox()">-->
+<!--    <span class="close">&times;</span>-->
+<!--    <img id="lightbox-img" src="" alt="Full Screenshot">-->
+<!--</div>-->
+
+<!--<script>-->
+<!--const lightbox = document.getElementById('lightbox');-->
+<!--const lightboxImg = document.getElementById('lightbox-img');-->
+
+<!--function openLightbox(img) {-->
+<!--    lightboxImg.src = img.src;-->
+<!--    lightbox.style.display = 'flex';-->
+<!--}-->
+<!--function closeLightbox() {-->
+<!--    lightbox.style.display = 'none';-->
+<!--}-->
+<!--lightboxImg.addEventListener('click', e => e.stopPropagation());-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Report</title>
+    <style>
+        @page { size: A4; margin: 20mm; }
+        body { font-family: Arial; font-size: 12px; color: #000; }
+        .page-block { border: 2px solid #c00; padding: 15px; margin-bottom: 20px; page-break-after: always; }
+        .page-block:last-child { page-break-after: auto; }
+        h2 { text-align:center; background:#eee; padding:8px; font-size:18px; }
+        table { width:100%; border-collapse: collapse; }
+        td { border:1px solid #c00; padding:6px; vertical-align:top; }
+        .label { width:35%; background:#fff6f6; font-weight:bold; }
+        .box { border:1px solid #c00; padding:6px; white-space: pre-wrap; }
+        .screenshot { max-width:100%; border:1px solid #ccc; margin-top:8px; }
+        .status-success { color:green; font-weight:bold; }
+        .status-fail { color:red; font-weight:bold; }
+    </style>
+</head>
+<body>
+
+{% for record in records %}
+
+    <!-- PAGE 1 -->
+    <div class="page-block">
+        <h2>Automation Test Report</h2>
+
+        <table>
+            <tr><td class="label">Client Name</td><td>{{ record.client_name }}</td></tr>
+            <tr><td class="label">Module</td><td>{{ record.Module }}</td></tr>
+            <tr><td class="label">Test Code</td><td>{{ record.Testcase_code }}</td></tr>
+            <tr><td class="label">Scenario</td><td>{{ record.Test_scnarios }}</td></tr>
+            <tr><td class="label">Result</td><td>{{ record.Testcase_Result }}</td></tr>
+            <tr><td class="label">Date</td><td>{{ record.created_date }}</td></tr>
+            <tr><td class="label">Remarks</td><td>{{ record.remarks }}</td></tr>
+            <tr><td class="label">videolink<td><td>{{record.videolink}}</td></tr>
+
+            <tr>
+                <td class="label">Status</td>
+                <td>
+                    {% if record.status|lower == "success" %}
+                        <span class="status-success">{{ record.status }}</span>
+                    {% elif record.status|lower == "fail" %}
+                        <span class="status-fail">{{ record.status }}</span>
+                    {% else %}
+                        {{ record.status }}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <h3>Input</h3>
+        <div class="box">{{ record.inputdata }}</div>
+
+        <h3>Output</h3>
+        <div class="box">{{ record.outputdata }}</div>
+
+    </div>
+
+    <!-- PAGE 2: SCREENSHOT -->
+    <div class="page-block">
+        <h2>Screenshot</h2>
+
+        {% if record.base64_image %}
+            <img class="screenshot" src="data:image/png;base64,{{ record.base64_image }}" alt="Screenshot">
+        {% else %}
+            <p style="color:red;"><b>No Screenshot Found</b></p>
+            <p>Screenshot path: {{ record.screenshoot }}</p>
+        {% endif %}
+    </div>
+
+{% endfor %}
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,494 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html>&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Test Automation</title>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h1 style="color:Tomato">Test Automation</h1>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<form>&ndash;&gt;-->
+<!--&lt;!&ndash;    <label for="client-name">Client Name:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <select id="client-name" name="client-name">&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="" disabled selected>Choose client name</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="nf">NF</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="KVB">KVB</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="NAC">IB</option>&ndash;&gt;-->
+<!--&lt;!&ndash;    </select>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;    <label for="module-name">Module Name:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <select id="module-name" name="module-name">&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="" disabled selected>Choose module name</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="ecf">ECF</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="vendor">vendor</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="ap">AP</option>&ndash;&gt;-->
+<!--&lt;!&ndash;    </select>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;    <label for="Environment-name"> Test Environment:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <select id="Environment-name" name="Environment-name">&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="" disabled selected>Choose Environment</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="ecf">DO</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="invoice">SIT</option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <option value="payment">UAT</option>&ndash;&gt;-->
+<!--&lt;!&ndash;    </select>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    Environment Url:<input type="url">&ndash;&gt;-->
+<!--&lt;!&ndash;    Test scenarios :<input type="text">&ndash;&gt;-->
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<form>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h3 style="color:MediumSeaGreen">Test Data Inputs</h3>&ndash;&gt;-->
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Test Automation</title>-->
+<!--    <style>-->
+<!--        #template {-->
+<!--            display: inline-block;-->
+<!--            width: 1500px;-->
+<!--            margin-bottom: 30px;-->
+<!--            margin-left: 40px;-->
+<!--            background-color: #f0f8ff;-->
+<!--            padding: 40px;-->
+<!--            border-radius: 3px;-->
+<!--        }-->
+<!--        label { margin-left: 20px; }-->
+<!--        input[type="text"] {-->
+<!--            width: 150px;-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+<!--        .row {-->
+<!--            margin-bottom: 10px;-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            background-color: #f0f8ff;-->
+<!--            border-radius: 3px;-->
+<!--            padding: 10px;-->
+<!--        }-->
+<!--        .col-md-3 {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            width: 250px;-->
+<!--        }-->
+<!--        button, #submit {-->
+<!--            background-color: #FAEBD7;-->
+<!--            border: 1px solid #ccc;-->
+<!--            color: blue;-->
+<!--            font-size: 17px;-->
+<!--            cursor: pointer;-->
+<!--            border-radius: 10px;-->
+<!--            margin: 20px 0;-->
+<!--            padding: 8px 16px;-->
+<!--            margin-left: 40px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h3>Automation Templates:</h3>-->
+
+<!--<form method="POST" action="/nfserv/test_temp_create">-->
+<!--    <div class="template" id="template">-->
+<!--        <label for="client-name">Client Name:</label>-->
+<!--        <select id="client-name" name="client-name">-->
+<!--            <option value="" disabled selected>Choose client name</option>-->
+<!--            <option value="nf">NF</option>-->
+<!--            <option value="abc">ABC</option>-->
+<!--            <option value="xyz">XYZ</option>-->
+<!--        </select>-->
+
+<!--        <label for="module-name">Module Name:</label>-->
+<!--        <select id="module-name" name="module-name">-->
+<!--            <option value="" disabled selected>Choose module name</option>-->
+<!--            <option value="ecf">ECF</option>-->
+<!--            <option value="invoice">Invoice</option>-->
+<!--            <option value="payment">Payment</option>-->
+<!--        </select>-->
+
+<!--        <label for="Environment">Environment:</label>-->
+<!--        <select id="Environment" name="Environment">-->
+<!--            <option value="" disabled selected>Choose Environment</option>-->
+<!--            <option value="SIT">SIT</option>-->
+<!--            <option value="DO">DO</option>-->
+<!--            <option value="UAT">UAT</option>-->
+<!--        </select>-->
+
+<!--        <label>Environment Url</label>-->
+<!--        <input type="url">-->
+<!--        <label>Test scenario Name</label>-->
+<!--        <input type="text">-->
+<!--    </div>-->
+<!--</form>-->
+
+<!--<form>-->
+<!--    <h2>Test Data Inputs:</h2>-->
+<!--    <button type="button" onclick="addFields()">Add Fields for input</button>-->
+<!--    <input type="submit" value="Submit" id="submit">-->
+
+<!--    <div id="dynamic-fields">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-3">-->
+<!--                <label>Formcontrol Name:</label>-->
+<!--                <input type="text" name="formcontrol_key[]" placeholder="Key">-->
+<!--                <input type="text" name="formcontrol_value[]" placeholder="Value">-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <label>Placeholder Name:</label>-->
+<!--                <input type="text" name="placeholder_key[]" placeholder="Key">-->
+<!--                <input type="text" name="placeholder_value[]" placeholder="Value">-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <label>ID:</label>-->
+<!--                <input type="text" name="id_key[]" placeholder="Key">-->
+<!--                <input type="text" name="id_value[]" placeholder="Value">-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <label>Screen Name:</label>-->
+<!--                <input type="text" name="screenname[]" placeholder="Screen name">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
+
+<!--<script>-->
+<!--document.getElementById("submit").addEventListener("click", async function(event) {-->
+<!--    event.preventDefault();-->
+
+<!--    // Gather static fields-->
+<!--    const clientName = document.getElementById("client-name").value;-->
+<!--    const moduleName = document.getElementById("module-name").value;-->
+<!--    const environment = document.getElementById("Environment").value;-->
+<!--    const scenarioName = document.querySelector('input[type="text"]').value;-->
+
+<!--    // Gather dynamic fields-->
+<!--    const formcontrol_keys = document.getElementsByName("formcontrol_key[]");-->
+<!--    const formcontrol_values = document.getElementsByName("formcontrol_value[]");-->
+<!--    const placeholder_keys = document.getElementsByName("placeholder_key[]");-->
+<!--    const placeholder_values = document.getElementsByName("placeholder_value[]");-->
+<!--    const id_keys = document.getElementsByName("id_key[]");-->
+<!--    const id_values = document.getElementsByName("id_value[]");-->
+<!--    const screen_names = document.getElementsByName("screenname[]");-->
+
+<!--    const test_data = [];-->
+
+<!--    for (let i = 0; i < formcontrol_keys.length; i++) {-->
+<!--        const entry = {-->
+<!--            "Testcase_scnarios": scenarioName,-->
+<!--            "formcontrol": {-->
+<!--                [formcontrol_keys[i].value]: formcontrol_values[i].value-->
+<!--            },-->
+<!--            "placeholder": {-->
+<!--                [placeholder_keys[i].value]: placeholder_values[i].value-->
+<!--            },-->
+<!--            "id": {-->
+<!--                [id_keys[i].value]: id_values[i].value-->
+<!--            },-->
+<!--            "screenname": screen_names[i].value-->
+<!--        };-->
+<!--        test_data.push(entry);-->
+<!--    }-->
+
+<!--    const payload = {-->
+<!--        client_name: clientName,-->
+<!--        Project_module: moduleName,-->
+<!--        Testcase_scenario_name: scenarioName,-->
+<!--        environment: environment,-->
+<!--        Testcase_scenario_template: {-->
+<!--            data: test_data-->
+<!--        }-->
+<!--    };-->
+
+<!--    // POST JSON to backend-->
+<!--    const response = await fetch("/test_temp_create", {-->
+<!--        method: "POST",-->
+<!--        headers: {-->
+<!--            "Content-Type": "application/json"-->
+<!--        },-->
+<!--        body: JSON.stringify(payload)-->
+<!--    });-->
+
+<!--    const result = await response.json();-->
+<!--    alert("Template saved: " + JSON.stringify(result));-->
+<!--});-->
+<!--</script>-->
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Automation</title>
+    <style>
+        #template {
+            display: inline-block;
+            width: 1500px;
+            margin-bottom: 30px;
+            margin-left: 40px;
+            background-color: #f0f8ff;
+            padding: 40px;
+            border-radius: 3px;
+        }
+        label { margin-left: 20px; }
+        input[type="text"] {
+            width: 150px;
+            margin-right: 10px;
+        }
+        .row {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            background-color: #f0f8ff;
+            border-radius: 3px;
+            padding: 10px;
+        }
+        .col-md-3 {
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+        }
+        button, #submit {
+            background-color: #FAEBD7;
+            border: 1px solid #ccc;
+            color: blue;
+            font-size: 17px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 8px 16px;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<h3>Automation Templates:</h3>
+
+<form id="main-form">
+    <div class="template" id="template">
+        <label for="client-name">Client Name:</label>
+        <select id="client-name" name="client-name">
+            <option value="" disabled selected>Choose client name</option>
+            <option value="nf">NF</option>
+            <option value="abc">ABC</option>
+            <option value="xyz">XYZ</option>
+        </select>
+
+        <label for="module-name">Module Name:</label>
+        <select id="module-name" name="module-name">
+            <option value="" disabled selected>Choose module name</option>
+            <option value="ecf">ECF</option>
+            <option value="invoice">Invoice</option>
+            <option value="payment">Payment</option>
+        </select>
+
+        <label for="Environment">Environment:</label>
+        <select id="Environment" name="Environment">
+            <option value="" disabled selected>Choose Environment</option>
+            <option value="SIT">SIT</option>
+            <option value="DO">DO</option>
+            <option value="UAT">UAT</option>
+        </select>
+
+        <label>Environment Url</label>
+        <input type="url">
+        <label>Test scenario Name</label>
+        <input type="text" id="scenario-name">
+    </div>
+
+    <h2>Test Data Inputs:</h2>
+    <button type="button" onclick="addFields()">Add Fields for input</button>
+    <input type="submit" value="Submit" id="submit">
+
+    <div id="dynamic-fields">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Formcontrol Name:</label>
+                <input type="text" name="formcontrol_key[]" placeholder="Key">
+                <input type="text" name="formcontrol_value[]" placeholder="Value">
+            </div>
+            <div class="col-md-3">
+                <label>Placeholder Name:</label>
+                <input type="text" name="placeholder_key[]" placeholder="Key">
+                <input type="text" name="placeholder_value[]" placeholder="Value">
+            </div>
+            <div class="col-md-3">
+                <label>ID:</label>
+                <input type="text" name="id_key[]" placeholder="Key">
+                <input type="text" name="id_value[]" placeholder="Value">
+            </div>
+            <div class="col-md-3">
+                <label>Screen Name:</label>
+                <input type="text" name="screenname[]" placeholder="Screen name">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+function addFields() {
+    const dynamicFields = document.getElementById("dynamic-fields");
+
+    const row = document.createElement("div");
+    row.className = "row";
+
+    row.innerHTML = `
+        <div class="col-md-3">
+            <label>Formcontrol Name:</label>
+            <input type="text" name="formcontrol_key[]" placeholder="Key">
+            <input type="text" name="formcontrol_value[]" placeholder="Value">
+        </div>
+        <div class="col-md-3">
+            <label>Placeholder Name:</label>
+            <input type="text" name="placeholder_key[]" placeholder="Key">
+            <input type="text" name="placeholder_value[]" placeholder="Value">
+        </div>
+        <div class="col-md-3">
+            <label>ID:</label>
+            <input type="text" name="id_key[]" placeholder="Key">
+            <input type="text" name="id_value[]" placeholder="Value">
+        </div>
+        <div class="col-md-3">
+            <label>Screen Name:</label>
+            <input type="text" name="screenname[]" placeholder="Screen name">
+        </div>
+    `;
+
+    dynamicFields.appendChild(row);
+}
+
+document.getElementById("main-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const clientName = document.getElementById("client-name").value;
+    const moduleName = document.getElementById("module-name").value;
+    const environment = document.getElementById("Environment").value;
+    const scenarioName = document.getElementById("scenario-name").value;
+
+    const formcontrol_keys = document.getElementsByName("formcontrol_key[]");
+    const formcontrol_values = document.getElementsByName("formcontrol_value[]");
+    const placeholder_keys = document.getElementsByName("placeholder_key[]");
+    const placeholder_values = document.getElementsByName("placeholder_value[]");
+    const id_keys = document.getElementsByName("id_key[]");
+    const id_values = document.getElementsByName("id_value[]");
+    const screen_names = document.getElementsByName("screenname[]");
+
+    const test_data = [];
+
+    for (let i = 0; i < formcontrol_keys.length; i++) {
+        const entry = {
+            "Testcase_scnarios": scenarioName,
+            "formcontrol": {
+                [formcontrol_keys[i].value]: formcontrol_values[i].value
+            },
+            "placeholder": {
+                [placeholder_keys[i].value]: placeholder_values[i].value
+            },
+            "id": {
+                [id_keys[i].value]: id_values[i].value
+            },
+            "screenname": screen_names[i].value
+        };
+        test_data.push(entry);
+    }
+
+    const payload = {
+        client_name: clientName,
+        Project_module: moduleName,
+        Testcase_scenario_name: scenarioName,
+        environment: environment,
+        Testcase_scenario_template: {
+            data: test_data
+        }
+    };
+
+    const response = await fetch("nfserv/test_temp_create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    alert("Template saved: " + JSON.stringify(result));
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<script>-->
+<!--function addFields() {-->
+<!--    const container = document.getElementById("dynamic-fields");-->
+
+<!--    const row = document.createElement("div");-->
+<!--    row.className = "row";-->
+
+<!--    const sections = [-->
+<!--        { label: "Formcontrol Name", keyName: "formcontrol_key[]", valName: "formcontrol_value[]" },-->
+<!--        { label: "Placeholder Name", keyName: "placeholder_key[]", valName: "placeholder_value[]" },-->
+<!--        { label: "ID", keyName: "id_key[]", valName: "id_value[]" },-->
+<!--        { label: "Screen Name", keyName: "screenname[]", valName: null }-->
+<!--    ];-->
+
+<!--    sections.forEach(section => {-->
+<!--        const fieldGroup = document.createElement("div");-->
+<!--        fieldGroup.className = "col-md-3";-->
+
+<!--        const label = document.createElement("label");-->
+<!--        label.textContent = section.label;-->
+
+<!--        const keyInput = document.createElement("input");-->
+<!--        keyInput.type = "text";-->
+<!--        keyInput.name = section.keyName;-->
+<!--        keyInput.placeholder = section.label.includes("Screen") ? "Screen name" : "Key";-->
+
+<!--        fieldGroup.appendChild(label);-->
+<!--        fieldGroup.appendChild(keyInput);-->
+
+<!--        if (section.valName) {-->
+<!--            const valInput = document.createElement("input");-->
+<!--            valInput.type = "text";-->
+<!--            valInput.name = section.valName;-->
+<!--            valInput.placeholder = "Value";-->
+<!--            fieldGroup.appendChild(valInput);-->
+<!--        }-->
+
+<!--        row.appendChild(fieldGroup);-->
+<!--    });-->
+
+<!--    container.appendChild(row);-->
+<!--}-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->

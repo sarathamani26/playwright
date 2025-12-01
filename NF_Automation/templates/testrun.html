@@ -1,0 +1,1087 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--  <title>Dropdown and Run Button</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      padding: 30px;-->
+<!--      background-color: #f4f4f4;-->
+<!--    }-->
+
+<!--    .container {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 20px;-->
+<!--      background-color: #fff;-->
+<!--      padding: 20px;-->
+<!--      border-radius: 8px;-->
+<!--      max-width: 600px;-->
+<!--      margin: auto;-->
+<!--      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);-->
+<!--    }-->
+
+<!--    select {-->
+<!--      padding: 10px;-->
+<!--      font-size: 16px;-->
+<!--      border-radius: 5px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      min-width: 150px;-->
+<!--    }-->
+
+<!--    button {-->
+<!--      padding: 10px 20px;-->
+<!--      font-size: 16px;-->
+<!--      background-color: #007bff;-->
+<!--      color: white;-->
+<!--      border: none;-->
+<!--      border-radius: 5px;-->
+<!--      cursor: pointer;-->
+<!--      margin-left:50px-->
+<!--    }-->
+
+<!--    button:hover {-->
+<!--      background-color: #0056b3;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h3>Automation Run:</h3>-->
+<!--  <form id="main-form">-->
+<!--  <div class="template" id="template">-->
+<!--    <label>Test Case Code:</label>-->
+<!--    <input type="Test_case_code" id="Test_case_code" name="Test_case_code" placeholder="Test_case_code">-->
+<!--    <label for="client-name">Client Name:</label>-->
+<!--    <select id="client-name" name="client-name" required>-->
+<!--      <option value="" disabled selected>Choose module name</option>-->
+<!--      <option value="ECF">ECF</option>-->
+<!--      <option value="Invoice">Invoice</option>-->
+<!--      <option value="Payment">Payment</option>-->
+<!--    </select>-->
+
+<!--    <button onclick="runAction()">Run</button>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    function runAction() {-->
+<!--      const val1 = document.getElementById("dropdown1").value;-->
+<!--      const val2 = document.getElementById("dropdown2").value;-->
+<!--      alert(`Selected values:\nDropdown 1: ${val1}\nDropdown 2: ${val2}`);-->
+<!--    }-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--  <title>Dropdown and Run Button</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      padding: px;-->
+<!--      background-color: #f4f4f4;-->
+<!--    }-->
+
+<!--    .container {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 20px;-->
+<!--      background-color: #fff;-->
+<!--      padding: 20px;-->
+<!--      border-radius: 8px;-->
+<!--      max-width: 600px;-->
+<!--      margin: auto;-->
+<!--      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);-->
+<!--    }-->
+
+<!--    .input-style {-->
+<!--      padding: 10px;-->
+<!--      font-size: 16px;-->
+<!--      border-radius: 5px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      width: 200px;-->
+<!--      box-sizing: border-box;-->
+<!--    }-->
+
+<!--    button {-->
+<!--      padding: 10px 20px;-->
+<!--      font-size: 16px;-->
+<!--      background-color: #007bff;-->
+<!--      color: white;-->
+<!--      border: none;-->
+<!--      border-radius: 5px;-->
+<!--      cursor: pointer;-->
+<!--      margin-left: 90px;-->
+<!--    }-->
+
+<!--    button:hover {-->
+<!--      background-color: #0056b3;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h3>Automation Run:</h3>-->
+<!--<form id="main-form">-->
+<!--  <div class="container">-->
+<!--    <label for="Test_case_code">Test Case Code:</label>-->
+<!--    <input type="text" id="Test_case_code" name="Test_case_code" class="input-style" placeholder="Test_case_code">-->
+
+<!--    <label for="client-name">Client Name:</label>-->
+<!--    <select id="client-name" name="client-name" class="input-style" required>-->
+<!--      <option value="" disabled selected>Choose module name</option>-->
+<!--      <option value="ECF">ECF</option>-->
+<!--      <option value="Invoice">Invoice</option>-->
+<!--      <option value="Payment">Payment</option>-->
+<!--    </select>-->
+
+<!--    <button type="button" onclick="runAction()">Run</button>-->
+<!--  </div>-->
+<!--</form>-->
+
+<!--<script>-->
+<!--  function runAction() {-->
+<!--    const code = document.getElementById("Test_case_code").value;-->
+<!--    const client = document.getElementById("client-name").value;-->
+<!--    alert(`Selected values:\nTest Case Code: ${code}\nClient Name: ${client}`);-->
+<!--  }-->
+<!--</script>-->
+
+<!--</body>/-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #f2f2f2;-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;-->
+<!--      height: 100vh;-->
+<!--      margin: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 400px;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 20px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      margin-bottom: 15px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    input[type="text"] {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      -->
+<!--    }-->
+
+<!--    .run-button {-->
+<!--      display: block;-->
+<!--      width: 100%;-->
+<!--      padding: 10px;-->
+<!--      background-color: #4CAF50;-->
+<!--      color: white;-->
+<!--      font-size: 16px;-->
+<!--      font-weight: bold;-->
+<!--      border: none;-->
+<!--      border-radius: 4px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .run-button:hover {-->
+<!--      background-color: #45a049;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+<!--    <div class="form-group">-->
+<!--      <label for="testcase">Testcase Code</label>-->
+<!--      <input type="text" id="testcase" name="testcase">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="client">Client Name</label>-->
+<!--      <input type="text" id="client" name="client">-->
+<!--    </div>-->
+<!--    <button class="run-button">RUN</button>-->
+<!--  </div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #f2f2f2;-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;-->
+<!--      height: 100vh;-->
+<!--      margin: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 400px;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 20px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      margin-bottom: 15px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      color: #333;-->
+
+<!--    }-->
+
+<!--    input[type="text"],-->
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+
+<!--    select {-->
+<!--      background-color: white;-->
+<!--    }-->
+
+<!--    .run-button {-->
+<!--      display: block;-->
+<!--      width: 100%;-->
+<!--      padding: 10px;-->
+<!--      background-color: #4CAF50;-->
+<!--      color: white;-->
+<!--      font-size: 16px;-->
+<!--      font-weight: bold;-->
+<!--      border: none;-->
+<!--      border-radius: 4px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .run-button:hover {-->
+<!--      background-color: #45a049;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+<!--    <div class="form-group">-->
+<!--      <label for="testcase">Testcase Code</label>-->
+<!--      <input type="text" id="testcase" name="testcase" placeholder="Enter the testcase code">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="client">Client Name</label>-->
+<!--      <select id="client" name="client">-->
+<!--        <option value="" disabled selected>Choose the client name</option>-->
+<!--        <option value="NAC">NAC</option>-->
+<!--        <option value="NF">NF</option>-->
+<!--        <option value="KVB">KVB</option>-->
+<!--        <option value="IB">IB</option>-->
+<!--        <option value="WR">WR</option>-->
+
+<!--      </select>-->
+<!--    </div>-->
+<!--    <button class="run-button">RUN</button>-->
+<!--  </div>-->
+
+<!--</body>-->
+<!--</html>-->
+<!--<script>-->
+<!--  document.querySelector(".run-button").addEventListener("click", function () {-->
+<!--    const testcasecode = document.getElementById("testcase").value;-->
+<!--    const clientname = document.getElementById("client").value;-->
+
+<!--    if (!testcasecode || !clientname) {-->
+<!--      alert("Please enter both Testcase Code and Client Name.");-->
+<!--      return;-->
+<!--    }-->
+
+<!--    const url = `/automation_runprocess?Testcasecode=${encodeURIComponent(testcasecode)}&clientname=${encodeURIComponent(clientname)}`;-->
+
+<!--    fetch("url, {-->
+<!--      method: "POST",-->
+<!--      headers: {-->
+<!--        "X-CSRFToken": getCookie("csrftoken"),-->
+<!--      },-->
+<!--    })-->
+<!--    .then((response) => response.json())-->
+<!--    .then((data) => {-->
+<!--      console.log("Response from backend:", data);-->
+<!--      alert("Process completed successfully!");-->
+<!--    })-->
+<!--    .catch((error) => {-->
+<!--      console.error("Error:", error);-->
+<!--      alert("Something went wrong!");-->
+<!--    });-->
+<!--  });-->
+
+<!--  // Helper to get CSRF token-->
+<!--  function getCookie(name) {-->
+<!--    let cookieValue = null;-->
+<!--    if (document.cookie && document.cookie !== "") {-->
+<!--      const cookies = document.cookie.split(";");-->
+<!--      for (let i = 0; i < cookies.length; i++) {-->
+<!--        const cookie = cookies[i].trim();-->
+<!--        if (cookie.substring(0, name.length + 1) === name + "=") {-->
+<!--          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));-->
+<!--          break;-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+<!--    return cookieValue;-->
+<!--  }-->
+<!--</script>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #f2f2f2;-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;-->
+<!--      height: 100vh;-->
+<!--      margin: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 400px;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 20px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      margin-bottom: 15px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    input[type="text"],-->
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+
+<!--    select {-->
+<!--      background-color: white;-->
+<!--    }-->
+
+<!--    .run-button {-->
+<!--      display: block;-->
+<!--      width: 100%;-->
+<!--      padding: 10px;-->
+<!--      background-color: #4CAF50;-->
+<!--      color: white;-->
+<!--      font-size: 16px;-->
+<!--      font-weight: bold;-->
+<!--      border: none;-->
+<!--      border-radius: 4px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .run-button:hover {-->
+<!--      background-color: #45a049;-->
+<!--    }-->
+
+<!--    .response-box {-->
+<!--      margin-top: 15px;-->
+<!--      font-size: 14px;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+<!--    <div class="form-group">-->
+<!--      <label for="testcase">Testcase Code</label>-->
+<!--      <input type="text" id="testcase" name="testcase" placeholder="Enter the testcase code">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="client">Client Name</label>-->
+<!--      <select id="client" name="client">-->
+<!--        <option value="" disabled selected>Choose the client name</option>-->
+<!--        <option value="NAC">NAC</option>-->
+<!--        <option value="NF">NF</option>-->
+<!--        <option value="KVB">KVB</option>-->
+<!--        <option value="IB">IB</option>-->
+<!--        <option value="WR">WR</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <button class="run-button">RUN</button>-->
+<!--    <div class="response-box" id="response"></div>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    document.querySelector(".run-button").addEventListener("click", function () {-->
+<!--      const testcasecode = document.getElementById("testcase").value;-->
+<!--      const clientname = document.getElementById("client").value;-->
+
+<!--      if (!testcasecode || !clientname) {-->
+<!--        alert("Please enter both Testcase Code and Client Name.");-->
+<!--        return;-->
+<!--      }-->
+
+<!--      const url = `/nfserv/automation_runprocess?Testcasecode=${encodeURIComponent(testcasecode)}&clientname=${encodeURIComponent(clientname)}`;-->
+
+<!--      fetch(url, {-->
+<!--        method: "POST",-->
+<!--        headers: {-->
+<!--          "X-CSRFToken": getCookie("csrftoken"),-->
+<!--        },-->
+<!--      })-->
+<!--      .then((response) => response.json())-->
+<!--      .then((data) => {-->
+<!--        console.log("Response from backend:", data);-->
+<!--        document.getElementById("response").innerText = "✅ Success: " + JSON.stringify(data);-->
+<!--      })-->
+<!--      .catch((error) => {-->
+<!--        console.error("Error:", error);-->
+<!--        document.getElementById("response").innerText = "❌ Error: Something went wrong!";-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Helper to get CSRF token-->
+<!--    function getCookie(name) {-->
+<!--      let cookieValue = null;-->
+<!--      if (document.cookie && document.cookie !== "") {-->
+<!--        const cookies = document.cookie.split(";");-->
+<!--        for (let i = 0; i < cookies.length; i++) {-->
+<!--          const cookie = cookies[i].trim();-->
+<!--          if (cookie.substring(0, name.length + 1) === name + "=") {-->
+<!--            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));-->
+<!--            break;-->
+<!--          }-->
+<!--        }-->
+<!--      }-->
+<!--      return cookieValue;-->
+<!--    }-->
+<!--  </script>-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #F2F2F2;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+<!--    .main-container {-->
+<!--      width: 600px;-->
+<!--      margin: 50px auto;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 20px;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--    .form-group {-->
+<!--      margin-bottom: 15px;-->
+<!--      width: 100%;-->
+<!--    }-->
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--    input[type="text"],-->
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+<!--    select {-->
+<!--      background-color: white;-->
+<!--    }-->
+<!--    .run-button {-->
+<!--      display: block;-->
+<!--      width: 100%;-->
+<!--      padding: 10px;-->
+<!--      background-color: #4CAF50;-->
+<!--      color: white;-->
+<!--      font-size: 16px;-->
+<!--      font-weight: bold;-->
+<!--      border: none;-->
+<!--      border-radius: 4px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+<!--    .run-button:hover {-->
+<!--      background-color: #45A049;-->
+<!--    }-->
+<!--    .response-box {-->
+<!--      margin-top: 15px;-->
+<!--      font-size: 14px;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+<!--    <div class="form-group">-->
+<!--      <label for="testcase">Testcase Code</label>-->
+
+<!--      <input type="text" id="testcase" name="testcase" placeholder="Enter Test Case Code">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="client">Client Name</label>-->
+<!--      <select id="client" name="client">-->
+<!--        <option value="" disabled selected>Choose the client</option>-->
+<!--        <option value="NAC">NAC</option>-->
+<!--        <option value="NF">NF</option>-->
+<!--        <option value="KVB">KVB</option>-->
+<!--        <option value="IB">IB</option>-->
+<!--        <option value="WR">WR</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <button class="run-button">RUN</button>-->
+<!--    <div class="response-box" id="response"></div>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    document.querySelector(".run-button").addEventListener("click", function () {-->
+<!--      const testcasecode = document.getElementById("testcase").value.trim();-->
+<!--      const clientname = document.getElementById("client").value.trim();-->
+
+<!--      if (!testcasecode || !clientname) {-->
+<!--        alert("Please enter both Testcase Code and Client Name.");-->
+<!--        return;-->
+<!--      }-->
+
+<!--      const url = `/nfserv/automation_runprocess?Testcasecode=${encodeURIComponent(testcasecode)}&clientname=${encodeURIComponent(clientname)}`;-->
+
+<!--      fetch(url, {-->
+<!--        method: "POST",-->
+<!--        headers: {-->
+<!--          "X-CSRFToken": getCookie("csrftoken"),-->
+<!--        },-->
+<!--      })-->
+<!--      .then((response) => response.json())-->
+<!--      .then((data) => {-->
+<!--        console.log("Response from backend:", data);-->
+<!--        document.getElementById("response").innerText = "✅ Success: " + JSON.stringify(data);-->
+<!--&lt;!&ndash;        window.location.href = "http://127.0.0.1:8000/nfserv/report/";&ndash;&gt;-->
+<!--      })-->
+<!--      .catch((error) => {-->
+<!--        console.error("Error:", error);-->
+<!--        document.getElementById("response").innerText = "❌ Error: Something went wrong!";-->
+<!--      });-->
+<!--    });-->
+
+<!--    function getCookie(name) {-->
+<!--      let cookieValue = null;-->
+<!--      if (document.cookie && document.cookie !== "") {-->
+<!--        const cookies = document.cookie.split(";");-->
+<!--        for (let i = 0; i < cookies.length; i++) {-->
+<!--          const cookie = cookies[i].trim();-->
+<!--          if (cookie.substring(0, name.length + 1) === name + "=") {-->
+<!--            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));-->
+<!--            break;-->
+<!--          }-->
+<!--        }-->
+<!--      }-->
+<!--      return cookieValue;-->
+<!--    }-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Automation Run</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F2F2F2;
+      margin: 10;
+      padding: 0;
+    }
+    .main-container {
+      width: 600px;
+      margin: 100px auto 50px auto; ;
+      background-color: white;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 11px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+     padding: 7px;
+      box-sizing: border-box;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    select {
+      background-color: white;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .action-button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+    }
+    .run-button { background-color: #4CAF50; }
+    .run-button:hover { background-color: #45A049; }
+    .refresh-button { background-color: #2196F3; }
+    .refresh-button:hover { background-color: #1976D2; }
+    .stop-button { background-color: #F44336; }
+    .stop-button:hover { background-color: #D32F2F; }
+    .response-box {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h2>Automation RUN</h2>
+    <div class="form-group">
+      <label for="testcase">Testcase Code</label>
+      <input type="text" id="testcase" name="testcase" placeholder="Enter Test Case Code">
+    </div>
+    <div class="form-group">
+      <label for="client">Client Name</label>
+      <select id="client" name="client">
+        <option value="" disabled selected>Choose the client</option>
+        <option value="NAC">NAC</option>
+        <option value="NF">NF</option>
+        <option value="KVB">KVB</option>
+        <option value="IB">IB</option>
+        <option value="WR">WR</option>
+      </select>
+    </div>
+    <div class="button-group">
+      <button class="action-button run-button">RUN</button>
+      <button class="action-button refresh-button">REFRESH</button>
+      <button class="action-button stop-button">STOP</button>
+    </div>
+    <div class="response-box" id="response"></div>
+  </div>
+
+  <script>
+    document.querySelector(".run-button").addEventListener("click", function () {
+      const testcasecode = document.getElementById("testcase").value.trim();
+      const clientname = document.getElementById("client").value.trim();
+
+      if (!testcasecode || !clientname) {
+        alert("Please enter both Testcase Code and Client Name.");
+        return;
+      }
+
+      const url = `/nfserv/automation_runprocess?Testcasecode=${encodeURIComponent(testcasecode)}&clientname=${encodeURIComponent(clientname)}`;
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response from backend:", data);
+        document.getElementById("response").innerText = "✅ Success: " Completed;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        document.getElementById("response").innerText = "❌ Error: Something went wrong!";
+      });
+    });
+
+    document.querySelector(".refresh-button").addEventListener("click", function () {
+      document.getElementById("testcase").value = "";
+      document.getElementById("client").selectedIndex = 0; // reset dropdown
+      document.getElementById("response").innerText = "";
+    });
+
+    document.querySelector(".stop-button").addEventListener("click", function () {
+      const url = `/nfserv/automation_stop/`;
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Stop response:", data);
+        document.getElementById("response").innerText = "🛑 Stopped: " + JSON.stringify(data);
+      })
+      .catch((error) => {
+        console.error("Error stopping:", error);
+        document.getElementById("response").innerText = "❌ Error stopping automation!";
+      });
+    });
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === name + "=") {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Report</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background: #34495e;
+    color: white;
+    padding-top: 20px;
+  }
+  .sidebar a {
+    display: block;
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+  }
+  .sidebar a:hover {
+    background: #3d566e;
+  }
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 200px;
+    right: 0;
+    height: 50px;
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+  }
+  .topbar a {
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .topbar a:hover {
+    text-decoration: underline;
+  }
+
+  .content {
+    margin-top: 50px;
+    margin-left: 200px;
+    padding: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  th {
+    background-color: #d7f4d0;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  tbody {
+    font-size: 20px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%;
+    margin: 10px auto;
+    gap: 7px;
+    font-size: 20px;
+  }
+  .pagination button {
+    border: 1px solid #28a745;
+    background: transparent;
+    color: #28a745;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+  }
+  .header-row button {
+    border: 1px solid #28a745;
+    background: #28a745;
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .topbar a.active {
+      background: #28a745;
+      color: white;
+      border-radius: 10px;
+   }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a href="">Automation</a>
+</div>
+
+<div class="topbar">
+  <h3>  Run Process</h3>
+</div>
+
+<div class="content">
+  <div class="header-row">
+    <h2 style="margin-left:5%;">Run Summary</h2>
+
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Test Case Code</th>
+        <th>Scenario Name </th>
+        <th>Test Implement Status </th>
+        <th>Running Status</th>
+      </tr>
+    </thead>
+    <tbody id="table-body-run"></tbody>
+  </table>
+
+  <div class="pagination">
+    <button id="prevBtnRun">&lt;</button>
+      <span id="currentPageRun">1</span>
+      <button id="nextBtnRun">&gt;</button>
+  </div>
+</div>
+
+<script>
+    let runData = [];
+    let runPage = 1;
+    let runHasNext = false;
+    let runHasPrevious = false;
+
+    function loadRunData() {
+        fetch(`/nfserv/report_summary?page=${runPage}`)
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            runData = data.data;
+            runHasNext = data.pagination.has_next;
+            runHasPrevious = data.pagination.has_previous;
+            runPage = data.pagination.index;
+            displayRunPage();
+        })
+        .catch(err => console.error("Fetch error:", err));
+    }
+
+    function displayRunPage() {
+        const tbody = document.getElementById('table-body-run');
+        tbody.innerHTML = "";
+        runData.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${(runPage - 1) * 10 + index + 1}</td>
+                <td>${item.testcase_code || ''}</td>
+                <td>${item.client_name || ''}</td>
+                <td>${item.environment || ''}</td>
+                <td>${item.project_module || ''}</td>
+                <td>${item.Testcase_scenario_name || ''}</td>
+                <td>${item.updated_date || ''}</td>
+                <td>${item.status || ''}</td>`;
+            tbody.appendChild(tr);
+        });
+      document.getElementById('currentPageRun').textContent = runPage;
+      document.getElementById('prevBtnRun').disabled = !runHasPrevious;
+      document.getElementById('nextBtnRun').disabled = !runHasNext;
+    }
+
+    document.getElementById('prevBtnRun').addEventListener('click', () => {
+        if (runHasPrevious) {
+            runPage--;
+            loadRunData();
+        }
+    });
+    document.getElementById('nextBtnRun').addEventListener('click', () => {
+        if (runHasNext) {
+            runPage++;
+            loadRunData();
+        }
+    });
+    document.getElementById("addrunBtn").addEventListener("click", function() {
+        window.location.href = "/nfserv/report/";
+    });
+    document.addEventListener("DOMContentLoaded", loadRunData);
+</script>
+</body>
+</html>

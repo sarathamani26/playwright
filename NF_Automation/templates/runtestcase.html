@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Automation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    #template {
+      display: block;
+      width: 100%;
+      max-width: 1000px;
+      margin: 20px auto;
+      background-color: #f0f8ff;
+      padding: 40px;
+      border-radius: 10px;
+    }
+
+    label {
+      margin-left: 30px;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    select {
+      width: 162px;
+      margin: 5px 10px 10px 10px;
+      padding: 5px;
+    }
+
+    .row {
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      background-color: #f0f8ff;
+      border-radius: 3px;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+
+    .col-md-3 {
+      display: flex;
+      flex-direction: column;
+      width: 23%;
+      min-width: 200px;
+    }
+
+    button,
+    #submit {
+      background-color: #FAEBD7;
+      border: 1px solid #ccc;
+      color: blue;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 10px 16px;
+      margin: 10px;
+    }
+
+    h3, h2 {
+      text-align: center;
+    }
+
+    #json-output {
+      white-space: pre-wrap;
+      background: #f8f8f8;
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .btn-group {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h3>Automation Templates:</h3>
+
+<!-- ❌ Removed action and method -->
+<form id="main-form">
+  <div class="template" id="template">
+    <label for="client-name">Client Name:</label>
+    <select id="client-name" name="client-name" required>
+      <option value="" disabled selected>Choose client name</option>
+      <option value="NF">NF</option>
+      <option value="NAC">NAC</option>
+      <option value="KVB">KVB</option>
+      <option value="IB">IB</option>
+
+
+    </select>
+
+    <label for="module-name">Module Name:</label>
+    <select id="module-name" name="module-name" required>
+      <option value="" disabled selected>Choose module name</option>
+      <option value="Vendor">Vendor</option>
+      <option value="ECF">ECF</option>
+      <option value="AP">AP</option>
+    </select>
+
+    <label for="Environment">Environment:</label>
+    <select id="Environment" name="Environment" required>
+      <option value="" disabled selected>Choose Environment</option>
+      <option value="DO">DO</option>
+      <option value="SIT">SIT</option>
+      <option value="UAT">UAT</option>
+    </select>
+
+
+

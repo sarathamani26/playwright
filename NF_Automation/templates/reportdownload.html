@@ -1,0 +1,421 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Client Date Selection Screen</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--      background-color: #f4f4f4;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+<!--    .container {-->
+<!--      max-width: 900px;-->
+<!--      margin: 80px auto;-->
+<!--      padding: 30px;-->
+<!--      background-color: #ffffff;-->
+<!--      border-radius: 10px;-->
+<!--      box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--    }-->
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 40px;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--    .form-row {-->
+<!--      display: flex;-->
+<!--      align-items: flex-end;-->
+<!--      gap: 20px;-->
+<!--      justify-content: space-between;-->
+<!--      flex-wrap: wrap; /* stack nicely on small screens */-->
+<!--    }-->
+<!--    .form-group {-->
+<!--      flex: 1;-->
+<!--      min-width: 200px;-->
+<!--    }-->
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 6px;-->
+<!--      font-weight: 500;-->
+<!--      color: #444;-->
+<!--    }-->
+<!--    select, input[type="date"] {-->
+<!--      width: 100%;-->
+<!--      padding: 12px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      font-size: 15px;-->
+<!--      box-sizing: border-box;-->
+<!--      transition: border-color 0.3s;-->
+<!--    }-->
+<!--    select:focus, input[type="date"]:focus {-->
+<!--      border-color: #0078d4;-->
+<!--      outline: none;-->
+<!--    }-->
+<!--    .search-btn {-->
+<!--      background-color: #0078d4;-->
+<!--      color: #fff;-->
+<!--      border: none;-->
+<!--      padding: 14px 22px;-->
+<!--      font-size: 18px;-->
+<!--      border-radius: 8px;-->
+<!--      cursor: pointer;-->
+<!--      transition: background-color 0.3s;-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: center;-->
+<!--      height: 48px; /* align with input height */-->
+<!--    }-->
+<!--    .search-btn:hover {-->
+<!--      background-color: #005ea6;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="container">-->
+<!--    <h2>Automation Report Summary</h2>-->
+
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="clientName">Client Name</label>-->
+<!--        <select id="clientName">-->
+<!--          <option value="">&#45;&#45; Choose Client &#45;&#45;</option>-->
+<!--          <option value="client1">NAC</option>-->
+<!--          <option value="client2">NF</option>-->
+<!--          <option value="client3">IB</option>-->
+<!--          <option value="client4">KVB</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="fromDate">From Date</label>-->
+<!--        <input type="date" id="fromDate">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="toDate">To Date</label>-->
+<!--        <input type="date" id="toDate">-->
+<!--      </div>-->
+
+<!--      <button class="search-btn" title="Search">&#128269;</button> &lt;!&ndash; Unicode 🔍 &ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Client Date Selection Screen</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--      background-color:#A9A9A9;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+<!--    .container {-->
+<!--      max-width: 900px;-->
+<!--      margin: 80px auto;-->
+<!--      padding: 30px;-->
+<!--      background-color: #FFF0F5;-->
+<!--      border-radius: 1px;-->
+<!--      box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--    }-->
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 40px;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--    .form-row {-->
+<!--      display: flex;-->
+<!--      align-items: flex-end;-->
+<!--      gap: 20px;-->
+<!--      justify-content: space-between;-->
+<!--      flex-wrap: wrap; /* stack nicely on small screens */-->
+<!--    }-->
+<!--    .form-group {-->
+<!--      flex: 1;-->
+<!--      min-width: 200px;-->
+<!--    }-->
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 6px;-->
+<!--      font-weight: 500;-->
+<!--      color: #444;-->
+<!--    }-->
+<!--    select, input[type="date"] {-->
+<!--      width: 100%;-->
+<!--      padding: 12px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      font-size: 15px;-->
+<!--      box-sizing: border-box;-->
+<!--      transition: border-color 0.3s;-->
+<!--    }-->
+<!--    select:focus, input[type="date"]:focus {-->
+<!--      border-color: #0078d4;-->
+<!--      outline: none;-->
+<!--    }-->
+<!--    .download-btn {-->
+<!--  background: linear-gradient(135deg, #0078d4, #005ea6);-->
+<!--  color: white;-->
+<!--  border: none;-->
+<!--  padding: 14px 28px;-->
+<!--  font-size: 18px;-->
+<!--  font-weight: 500;-->
+<!--  border-radius: 10px;-->
+<!--  cursor: pointer;-->
+<!--  transition: all 0.3s ease;-->
+<!--  display: inline-flex;-->
+<!--  align-items: center;-->
+<!--  gap: 10px;-->
+<!--  box-shadow: 0 4px 8px rgba(0,0,0,0.2);-->
+<!--}-->
+
+<!--.download-btn:hover {-->
+<!--  transform: translateY(-2px);-->
+<!--  box-shadow: 0 6px 12px rgba(0,0,0,0.3);-->
+<!--  background: linear-gradient(135deg, #005ea6, #004080);-->
+<!--}-->
+
+<!--.download-btn i {-->
+<!--  font-size: 20px;-->
+<!--}-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="container">-->
+<!--    <h2>Automation Report Summary</h2>-->
+
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="clientName">Client Name</label>-->
+<!--        <select id="clientName">-->
+<!--          <option value="">&#45;&#45; Choose Client &#45;&#45;</option>-->
+<!--          <option value="client1">NAC</option>-->
+<!--          <option value="client2">NF</option>-->
+<!--          <option value="client3">IB</option>-->
+<!--          <option value="client4">KVB</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="moduleName">Module</label>-->
+<!--        <select id="moduleName" placeholder="choose modue" >-->
+<!--          <option value=""disabled selected>Choose Module</option>-->
+<!--          <option value="module1">vendor</option>-->
+<!--          <option value="module2">Ecf</option>-->
+<!--          <option value="module3">AP</option>-->
+
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="fromDate">From Date</label>-->
+<!--        <input type="date" id="fromDate">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="toDate">To Date</label>-->
+<!--        <input type="date" id="toDate">-->
+<!--      </div>-->
+
+
+<!--      <button class="download-btn"><i class="fa fa-download"></i> Download</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Client Date Selection Screen</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color:#A9A9A9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 30px;
+      background-color: #FFF0F5;
+      border-radius: 1px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #333;
+    }
+    .form-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap; /* stack nicely on small screens */
+    }
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #444;
+    }
+    select, input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    select:focus, input[type="date"]:focus {
+      border-color: #0078d4;
+      outline: none;
+    }
+    .animated-download-btn {
+      position: relative;
+      width: 100px;
+      height: 50px;
+      border: none;
+      border-radius: 80%;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .animated-download-btn:hover {
+      transform: scale(1.1);
+    }
+    .animated-download-btn video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none; /* allow button to receive clicks */
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Automation Report Summary</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="clientName">Client Name</label>
+        <select id="clientName">
+          <option value="">-- Choose Client --</option>
+          <option value="NAC">NAC</option>
+          <option value="NF">NF</option>
+          <option value="IB">IB</option>
+          <option value="KVB">KVB</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="moduleName">Module</label>
+        <select id="moduleName">
+          <option value="" disabled selected>Choose Module</option>
+          <option value="Vendor">Vendor</option>
+          <option value="ECF">ECF</option>
+          <option value="AP">AP</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fromDate">From Date</label>
+        <input type="date" id="fromDate">
+      </div>
+
+      <div class="form-group">
+        <label for="toDate">To Date</label>
+        <input type="date" id="toDate">
+      </div>
+
+      <button class="animated-download-btn" title="Download">
+        <video src="" autoplay loop muted playsinline></video>
+      </button>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+document.querySelector('.animated-download-btn').addEventListener('click', async () => {
+  const clientName = document.getElementById('clientName').value;
+  const moduleName = document.getElementById('moduleName').value;
+  const fromDate = document.getElementById('fromDate').value;
+  const toDate = document.getElementById('toDate').value;
+
+  if (!clientName || !moduleName || !fromDate || !toDate) {
+    alert("Please fill in all fields before downloading the report.");
+    return;
+  }
+
+  // ✅ Build query parameters in URL
+  const url = new URL(window.location.origin + "/nfserv/trstreport");
+  url.searchParams.append("clientname", clientName);
+  url.searchParams.append("module", moduleName);
+  url.searchParams.append("fromdate", fromDate);
+  url.searchParams.append("todate", toDate);
+
+  try {
+    const response = await fetch(url.toString(), {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'), // include if using CSRF in Django
+      },
+      // Sending empty body since data is in query params
+      body: ''
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to download the report. Server error.');
+    }
+
+    const blob = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = downloadUrl;
+    a.download = `${clientName}_test_report.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    console.error('Error:', error);
+    alert("Failed to download the report.");
+  }
+});
+
+// Helper to get CSRF token if needed
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+</script>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Automation Run</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .card {
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 400px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 6px;
+      margin-top: 5px;
+    }
+
+    #run-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .status span {
+      font-weight: bold;
+    }
+
+    .tick {
+      color: green;
+    }
+
+    .cross {
+      color: red;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 12px;
+      margin-left: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Automation Run</h2>
+
+  <label>Testcase Code:</label>
+  <input type="text" id="testcase-code">
+
+  <label>Question:</label>
+  <input type="text" id="question">
+
+  <button id="run-btn">Run</button>
+
+  <div class="result" id="result-area"></div>
+</div>
+
+<script>
+  const sampleData = {
+    "username": {
+      "status": "success"
+    },
+    "invoice_header": {
+      "status": "success"
+    },
+    "invoice_details": {
+      "status": "error",
+      "message": "Missing invoice number"
+    }
+  };
+
+  document.getElementById("run-btn").addEventListener("click", () => {
+    const resultArea = document.getElementById("result-area");
+    resultArea.innerHTML = ""; // Clear previous results
+
+    for (const [key, value] of Object.entries(sampleData)) {
+      const row = document.createElement("div");
+      row.classList.add("status");
+
+      const name = document.createElement("span");
+      name.textContent = key;
+
+      const status = document.createElement("span");
+
+      if (value.status === "success") {
+        status.innerHTML = "&#10004;"; // ✓
+        status.classList.add("tick");
+      } else {
+        status.innerHTML = "&#10060;"; // ✗
+        status.classList.add("cross");
+      }
+
+      row.appendChild(name);
+      row.appendChild(status);
+      resultArea.appendChild(row);
+
+      // If error, show error message
+      if (value.status === "error" && value.message) {
+        const error = document.createElement("div");
+        error.classList.add("error-msg");
+        error.textContent = `Error: ${value.message}`;
+        resultArea.appendChild(error);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

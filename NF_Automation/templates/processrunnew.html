@@ -1,0 +1,1255 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #F2F2F2;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 95%;-->
+<!--      max-width: 1200px;-->
+<!--      margin: 50px auto;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 30px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .form-row {-->
+<!--      display: flex;-->
+<!--      gap: 20px;-->
+<!--      justify-content: space-between;-->
+<!--      flex-wrap: wrap;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      flex: 1;-->
+<!--      min-width: 200px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      font-weight: bold;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="client">Client Name</label>-->
+<!--        <select id="client" name="client">-->
+<!--          <option value="" disabled selected>Choose the client</option>-->
+<!--          <option value="NAC">NAC</option>-->
+<!--          <option value="NF">NF</option>-->
+<!--          <option value="KVB">KVB</option>-->
+<!--          <option value="IB">IB</option>-->
+<!--          <option value="WR">WR</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="module">Module</label>-->
+<!--        <select id="module" name="module">-->
+<!--          <option value="" disabled selected>Select module</option>-->
+<!--          <option value="Login">Login</option>-->
+<!--          <option value="ECF">ECF</option>-->
+<!--          <option value="Vendor">Vendor</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="environment">Environment</label>-->
+<!--        <select id="environment" name="environment">-->
+<!--          <option value="" disabled selected>Select environment</option>-->
+<!--          <option value="DO">DO</option>-->
+<!--          <option value="UAT">UAT</option>-->
+<!--          <option value="SIT">SIT</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="testcase">Testcase Code</label>-->
+<!--        <select id="testcase" name="testcase">-->
+<!--          <option value="" disabled selected>Select Testcase Code</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    const clientSelect = document.getElementById("client");-->
+<!--    const moduleSelect = document.getElementById("module");-->
+<!--    const environmentSelect = document.getElementById("environment");-->
+<!--    const testcaseSelect = document.getElementById("testcase");-->
+
+<!--    function fetchTestcaseCodes() {-->
+<!--      const clientname = clientSelect.value;-->
+<!--      const module = moduleSelect.value;-->
+<!--      const environment = environmentSelect.value;-->
+
+<!--      if (clientname && module && environment) {-->
+<!--        const url = `/nfserv/dropdown_testcase?clientname=${clientname}&module=${module}&environment=${environment}`;-->
+
+<!--        fetch(url, {-->
+<!--          method: 'POST',-->
+<!--          headers: {-->
+<!--            'Content-Type': 'application/json'-->
+<!--          }-->
+<!--        })-->
+<!--        .then(response => {-->
+<!--          if (!response.ok) throw new Error("API Error");-->
+<!--          return response.json();-->
+<!--        })-->
+<!--        .then(data => {-->
+<!--          testcaseSelect.innerHTML = '<option value="" disabled selected>Select Testcase Code</option>';-->
+<!--          data.forEach(tc => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = tc;-->
+<!--            option.textContent = tc;-->
+<!--            testcaseSelect.appendChild(option);-->
+<!--          });-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error fetching testcase codes:", err);-->
+<!--          testcaseSelect.innerHTML = '<option value="">Error loading testcases</option>';-->
+<!--        });-->
+<!--      }-->
+<!--    }-->
+
+<!--    // Call API when any of the 3 dropdowns change-->
+<!--    clientSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    moduleSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    environmentSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #F2F2F2;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 95%;-->
+<!--      max-width: 1200px;-->
+<!--      margin: 50px auto;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 30px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .form-row {-->
+<!--      display: flex;-->
+<!--      gap: 20px;-->
+<!--      justify-content: space-between;-->
+<!--      flex-wrap: wrap;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      flex: 1;-->
+<!--      min-width: 200px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      font-weight: bold;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+
+<!--    table {-->
+<!--      width: 100%;-->
+<!--      border-collapse: collapse;-->
+<!--      margin-top: 30px;-->
+<!--    }-->
+
+<!--    table, th, td {-->
+<!--      border: 1px solid #aaa;-->
+<!--    }-->
+
+<!--    th, td {-->
+<!--      padding: 10px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    th {-->
+<!--      background-color: #f0f0f0;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="client">Client Name</label>-->
+<!--        <select id="client" name="client">-->
+<!--          <option value="" disabled selected>Choose the client</option>-->
+<!--          <option value="NAC">NAC</option>-->
+<!--          <option value="NF">NF</option>-->
+<!--          <option value="KVB">KVB</option>-->
+<!--          <option value="IB">IB</option>-->
+<!--          <option value="WR">WR</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="module">Module</label>-->
+<!--        <select id="module" name="module">-->
+<!--          <option value="" disabled selected>Select module</option>-->
+<!--          <option value="Login">Login</option>-->
+<!--          <option value="ECF">ECF</option>-->
+<!--          <option value="Vendor">Vendor</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="environment">Environment</label>-->
+<!--        <select id="environment" name="environment">-->
+<!--          <option value="" disabled selected>Select environment</option>-->
+<!--          <option value="DO">DO</option>-->
+<!--          <option value="UAT">UAT</option>-->
+<!--          <option value="SIT">SIT</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="testcase">Testcase Code</label>-->
+<!--        <select id="testcase" name="testcase">-->
+<!--          <option value="" disabled selected>Select Testcase Code</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <table id="scenario-table" style="display: none;">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--          <th>Testcase Code</th>-->
+<!--          <th>Scenario Name</th>-->
+<!--          <th>Test Implement Status</th>-->
+<!--          <th>Process Status</th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody id="scenario-body">-->
+<!--        &lt;!&ndash; rows will be added here &ndash;&gt;-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    const clientSelect = document.getElementById("client");-->
+<!--    const moduleSelect = document.getElementById("module");-->
+<!--    const environmentSelect = document.getElementById("environment");-->
+<!--    const testcaseSelect = document.getElementById("testcase");-->
+<!--    const table = document.getElementById("scenario-table");-->
+<!--    const tableBody = document.getElementById("scenario-body");-->
+
+<!--    // Fetch Testcase codes-->
+<!--    function fetchTestcaseCodes() {-->
+<!--      const clientname = clientSelect.value;-->
+<!--      const module = moduleSelect.value;-->
+<!--      const environment = environmentSelect.value;-->
+
+<!--      if (clientname && module && environment) {-->
+<!--        const url = `/nfserv/dropdown_testcase?clientname=${clientname}&module=${module}&environment=${environment}`;-->
+
+<!--        fetch(url, {-->
+<!--          method: 'POST',-->
+<!--          headers: { 'Content-Type': 'application/json' }-->
+<!--        })-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--          testcaseSelect.innerHTML = '<option value="" disabled selected>Select Testcase Code</option>';-->
+<!--          data.forEach(tc => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = tc;-->
+<!--            option.textContent = tc;-->
+<!--            testcaseSelect.appendChild(option);-->
+<!--          });-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error fetching testcase codes:", err);-->
+<!--          testcaseSelect.innerHTML = '<option value="">Error loading testcases</option>';-->
+<!--        });-->
+<!--      }-->
+<!--    }-->
+
+<!--    // Fetch Scenario Names when Testcase Code is selected-->
+<!--    function fetchScenarioTable() {-->
+<!--      const testcasecode = testcaseSelect.value;-->
+<!--      if (!testcasecode) return;-->
+
+<!--      const url = `/nfserv/return_test_scn_name?Testcasecode=${testcasecode}`;-->
+
+<!--      fetch(url)-->
+<!--        .then(res => res.json())-->
+<!--        .then(data => {-->
+<!--          const scenarios = data.Testcase_scnarios || [];-->
+
+<!--          tableBody.innerHTML = ""; // Clear previous rows-->
+
+<!--          scenarios.forEach(scenario => {-->
+<!--            const row = document.createElement("tr");-->
+<!--            row.innerHTML = `-->
+<!--              <td>${testcasecode}</td>-->
+<!--              <td>${scenario}</td>-->
+<!--              <td>Pending</td>-->
+<!--              <td>Not Started</td>-->
+<!--            `;-->
+<!--            tableBody.appendChild(row);-->
+<!--          });-->
+
+<!--          table.style.display = "table"; // Show table-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error loading scenario data:", err);-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Event Listeners-->
+<!--    clientSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    moduleSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    environmentSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    testcaseSelect.addEventListener("change", fetchScenarioTable);-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      background-color: #F2F2F2;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 95%;-->
+<!--      max-width: 1200px;-->
+<!--      margin: 50px auto;-->
+<!--      background-color: white;-->
+<!--      border: 2px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      padding: 20px;-->
+<!--      box-shadow: 0 0 10px rgba(0,0,0,0.1);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 30px;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .form-row {-->
+<!--      display: flex;-->
+<!--      gap: 20px;-->
+<!--      justify-content: space-between;-->
+<!--      flex-wrap: wrap;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      flex: 1;-->
+<!--      min-width: 200px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 5px;-->
+<!--      font-weight: bold;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 8px;-->
+<!--      box-sizing: border-box;-->
+<!--      border: 1px solid #aaa;-->
+<!--      border-radius: 4px;-->
+<!--    }-->
+
+<!--    .table-container {-->
+<!--      margin-top: 40px;-->
+<!--      display: none;-->
+<!--    }-->
+
+<!--    table {-->
+<!--      width: 100%;-->
+<!--      border-collapse: collapse;-->
+<!--    }-->
+
+<!--    table, th, td {-->
+<!--      border: 1px solid #aaa;-->
+<!--    }-->
+
+<!--    th, td {-->
+<!--      padding: 10px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    th {-->
+<!--      background-color: #f0f0f0;-->
+<!--    }-->
+
+<!--    .table-title {-->
+<!--      font-size: 18px;-->
+<!--      margin-bottom: 10px;-->
+<!--      font-weight: bold;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="main-container">-->
+<!--    <h2>Automation RUN</h2>-->
+
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="client">Client Name</label>-->
+<!--        <select id="client" name="client">-->
+<!--          <option value="" disabled selected>Choose the client</option>-->
+<!--          <option value="NAC">NAC</option>-->
+<!--          <option value="NF">NF</option>-->
+<!--          <option value="KVB">KVB</option>-->
+<!--          <option value="IB">IB</option>-->
+<!--          <option value="WR">WR</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="module">Module</label>-->
+<!--        <select id="module" name="module">-->
+<!--          <option value="" disabled selected>Select module</option>-->
+<!--          <option value="Login">Login</option>-->
+<!--          <option value="ECF">ECF</option>-->
+<!--          <option value="Vendor">Vendor</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="environment">Environment</label>-->
+<!--        <select id="environment" name="environment">-->
+<!--          <option value="" disabled selected>Select environment</option>-->
+<!--          <option value="DO">DO</option>-->
+<!--          <option value="UAT">UAT</option>-->
+<!--          <option value="SIT">SIT</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="testcase">Testcase Code</label>-->
+<!--        <select id="testcase" name="testcase">-->
+<!--          <option value="" disabled selected>Select Testcase Code</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Scenario Table Div &ndash;&gt;-->
+<!--  <div class="table-container" id="table-container">-->
+<!--      <div class="table-title">Scenario Summary</div>-->
+<!--      <table id="scenario-table">-->
+<!--        <thead>-->
+<!--          <tr>-->
+<!--            <th>Testcase Code</th>-->
+<!--            <th>Scenario Name</th>-->
+<!--            <th>Test Implement Status</th>-->
+<!--            <th>Process Status</th>-->
+<!--          </tr>-->
+<!--        </thead>-->
+<!--        <tbody id="scenario-body">-->
+<!--          &lt;!&ndash; rows will be inserted here &ndash;&gt;-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--  </div>-->
+
+
+<!--  <script>-->
+<!--    const clientSelect = document.getElementById("client");-->
+<!--    const moduleSelect = document.getElementById("module");-->
+<!--    const environmentSelect = document.getElementById("environment");-->
+<!--    const testcaseSelect = document.getElementById("testcase");-->
+<!--    const tableContainer = document.getElementById("table-container");-->
+<!--    const tableBody = document.getElementById("scenario-body");-->
+
+<!--    // Fetch Testcase codes-->
+<!--    function fetchTestcaseCodes() {-->
+<!--      const clientname = clientSelect.value;-->
+<!--      const module = moduleSelect.value;-->
+<!--      const environment = environmentSelect.value;-->
+
+<!--      if (clientname && module && environment) {-->
+<!--        const url = `/nfserv/dropdown_testcase?clientname=${clientname}&module=${module}&environment=${environment}`;-->
+
+<!--        fetch(url, {-->
+<!--          method: 'POST',-->
+<!--          headers: { 'Content-Type': 'application/json' }-->
+<!--        })-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--          testcaseSelect.innerHTML = '<option value="" disabled selected>Select Testcase Code</option>';-->
+<!--          data.forEach(tc => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = tc;-->
+<!--            option.textContent = tc;-->
+<!--            testcaseSelect.appendChild(option);-->
+<!--          });-->
+
+<!--          // Hide table if previously visible-->
+<!--          tableContainer.style.display = "none";-->
+<!--          tableBody.innerHTML = "";-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error fetching testcase codes:", err);-->
+<!--          testcaseSelect.innerHTML = '<option value="">Error loading testcases</option>';-->
+<!--        });-->
+<!--      }-->
+<!--    }-->
+
+<!--    // Fetch Scenario Summary-->
+<!--    function fetchScenarioTable() {-->
+<!--      const testcasecode = testcaseSelect.value;-->
+<!--      if (!testcasecode) return;-->
+
+<!--      const url = `/nfserv/return_test_scn_name?Testcasecode=${testcasecode}`;-->
+
+<!--      fetch(url)-->
+<!--        .then(res => res.json())-->
+<!--        .then(data => {-->
+<!--          const scenarios = data.Testcase_scnarios || [];-->
+
+<!--          tableBody.innerHTML = ""; // Clear previous-->
+
+<!--          scenarios.forEach(scenario => {-->
+<!--            const row = document.createElement("tr");-->
+<!--            row.innerHTML = `-->
+<!--              <td>${testcasecode}</td>-->
+<!--              <td>${scenario}</td>-->
+<!--              <td>Pending</td>-->
+<!--              <td>Not Started</td>-->
+<!--            `;-->
+<!--            tableBody.appendChild(row);-->
+<!--          });-->
+
+<!--          tableContainer.style.display = "block"; // Show the table div-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error loading scenario data:", err);-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Attach listeners-->
+<!--    clientSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    moduleSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    environmentSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    testcaseSelect.addEventListener("change", fetchScenarioTable);-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>Automation Run</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--      background-color: #F2F2F2;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+
+<!--    .main-container {-->
+<!--      width: 95%;-->
+<!--      max-width: 1200px;-->
+<!--      margin: 40px auto;-->
+<!--      background-color: #fff;-->
+<!--      border: 1px solid #ddd;-->
+<!--      border-radius: 12px;-->
+<!--      padding: 30px;-->
+<!--      box-shadow: 0 4px 10px rgba(0,0,0,0.08);-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 30px;-->
+<!--      color: #2c3e50;-->
+<!--      font-size: 26px;-->
+<!--    }-->
+
+<!--    .form-row {-->
+<!--      display: flex;-->
+<!--      gap: 20px;-->
+<!--      justify-content: space-between;-->
+<!--      flex-wrap: wrap;-->
+<!--      margin-bottom: 25px;-->
+<!--    }-->
+
+<!--    .form-group {-->
+<!--      flex: 1;-->
+<!--      min-width: 220px;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 8px;-->
+<!--      font-weight: 600;-->
+<!--      color: #444;-->
+<!--    }-->
+
+<!--    select {-->
+<!--      width: 100%;-->
+<!--      padding: 10px;-->
+<!--      border: 1px solid #bbb;-->
+<!--      border-radius: 6px;-->
+<!--      font-size: 14px;-->
+<!--      background-color: #fff;-->
+<!--    }-->
+
+<!--    .button-row {-->
+<!--      display: flex;-->
+<!--      justify-content: flex-end;-->
+<!--      gap: 15px;-->
+<!--      margin-top: 10px;-->
+<!--    }-->
+
+<!--    .run-button,-->
+<!--    .refresh-button {-->
+<!--      padding: 10px 24px;-->
+<!--      border: none;-->
+<!--      border-radius: 6px;-->
+<!--      color: white;-->
+<!--      font-weight: bold;-->
+<!--      font-size: 15px;-->
+<!--      cursor: pointer;-->
+<!--      transition: background-color 0.3s ease;-->
+<!--    }-->
+
+<!--    .run-button {-->
+<!--      background-color: #28a745;-->
+<!--    }-->
+
+<!--    .run-button:hover {-->
+<!--      background-color: #218838;-->
+<!--    }-->
+
+<!--    .refresh-button {-->
+<!--      background-color: #007bff;-->
+<!--    }-->
+
+<!--    .refresh-button:hover {-->
+<!--      background-color: #0069d9;-->
+<!--    }-->
+
+<!--    .table-container {-->
+<!--      margin-top: 40px;-->
+<!--      padding: 20px;-->
+<!--      background-color: #fafafa;-->
+<!--      border: 1px solid #ddd;-->
+<!--      border-radius: 8px;-->
+<!--      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);-->
+<!--      display: none;-->
+<!--    }-->
+
+<!--    .table-title {-->
+<!--      font-size: 20px;-->
+<!--      font-weight: bold;-->
+<!--      margin-bottom: 15px;-->
+<!--      color: #2c3e50;-->
+<!--      text-align: left;-->
+<!--    }-->
+
+<!--    #scenario-table {-->
+<!--      width: 100%;-->
+<!--      border-collapse: collapse;-->
+<!--      background-color: #fff;-->
+<!--      font-size: 13px;-->
+<!--      table-layout: fixed;-->
+<!--    }-->
+
+<!--    #scenario-table thead {-->
+<!--      background-color: #f0f0f0;-->
+<!--    }-->
+
+<!--    #scenario-table th,-->
+<!--    #scenario-table td {-->
+<!--      padding: 10px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      text-align: center;-->
+<!--      word-wrap: break-word;-->
+<!--    }-->
+
+<!--    #scenario-table th:nth-child(1),-->
+<!--    #scenario-table td:nth-child(1) {-->
+<!--      width: 16%;-->
+<!--    }-->
+
+<!--    #scenario-table th:nth-child(2),-->
+<!--    #scenario-table td:nth-child(2) {-->
+<!--      width: 34%;-->
+<!--    }-->
+
+<!--    #scenario-table th:nth-child(3),-->
+<!--    #scenario-table td:nth-child(3),-->
+<!--    #scenario-table th:nth-child(4),-->
+<!--    #scenario-table td:nth-child(4),-->
+<!--    #scenario-table th:nth-child(5),-->
+<!--    #scenario-table td:nth-child(5) {-->
+<!--      width: 16.6%;-->
+<!--    }-->
+
+<!--    #scenario-table tr:nth-child(even) {-->
+<!--      background-color: #f9f9f9;-->
+<!--    }-->
+
+<!--    #scenario-table th {-->
+<!--      color: #333;-->
+<!--      font-weight: 600;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="main-container">-->
+<!--    <h2>Automation Run</h2>-->
+
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="client">Client Name</label>-->
+<!--        <select id="client">-->
+<!--          <option value="" disabled selected>Choose the client</option>-->
+<!--          <option value="NAC">NAC</option>-->
+<!--          <option value="NF">NF</option>-->
+<!--          <option value="KVB">KVB</option>-->
+<!--          <option value="IB">IB</option>-->
+<!--          <option value="WR">WR</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="module">Module</label>-->
+<!--        <select id="module">-->
+<!--          <option value="" disabled selected>Select module</option>-->
+<!--          <option value="Login">Login</option>-->
+<!--          <option value="ECF">ECF</option>-->
+<!--          <option value="Vendor">Vendor</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="environment">Environment</label>-->
+<!--        <select id="environment">-->
+<!--          <option value="" disabled selected>Select environment</option>-->
+<!--          <option value="DO">DO</option>-->
+<!--          <option value="UAT">UAT</option>-->
+<!--          <option value="SIT">SIT</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="testcase">Testcase Code</label>-->
+<!--        <select id="testcase">-->
+<!--          <option value="" disabled selected>Select Testcase Code</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="button-row">-->
+<!--      <button class="run-button" onclick="runProcess()">RUN</button>-->
+<!--      <button class="refresh-button" onclick="location.reload()">REFRESH</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Scenario Table Div &ndash;&gt;-->
+<!--  <div class="table-container" id="table-container">-->
+<!--    <div class="table-title">Scenario Summary</div>-->
+<!--    <table id="scenario-table">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--          <th>Testcase Code</th>-->
+<!--          <th>Scenario Name</th>-->
+<!--          <th>Test Implement Status</th>-->
+<!--          <th>Process Status</th>-->
+<!--          <th>Loader</th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody id="scenario-body">-->
+<!--        &lt;!&ndash; dynamic rows go here &ndash;&gt;-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    const clientSelect = document.getElementById("client");-->
+<!--    const moduleSelect = document.getElementById("module");-->
+<!--    const environmentSelect = document.getElementById("environment");-->
+<!--    const testcaseSelect = document.getElementById("testcase");-->
+<!--    const tableContainer = document.getElementById("table-container");-->
+<!--    const tableBody = document.getElementById("scenario-body");-->
+
+<!--    function fetchTestcaseCodes() {-->
+<!--      const clientname = clientSelect.value;-->
+<!--      const module = moduleSelect.value;-->
+<!--      const environment = environmentSelect.value;-->
+
+<!--      if (clientname && module && environment) {-->
+<!--        const url = `/nfserv/dropdown_testcase?clientname=${clientname}&module=${module}&environment=${environment}`;-->
+<!--        fetch(url, {-->
+<!--          method: 'POST',-->
+<!--          headers: { 'Content-Type': 'application/json' }-->
+<!--        })-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--          testcaseSelect.innerHTML = '<option value="" disabled selected>Select Testcase Code</option>';-->
+<!--          data.forEach(tc => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = tc;-->
+<!--            option.textContent = tc;-->
+<!--            testcaseSelect.appendChild(option);-->
+<!--          });-->
+
+<!--          tableContainer.style.display = "none";-->
+<!--          tableBody.innerHTML = "";-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error fetching testcase codes:", err);-->
+<!--          testcaseSelect.innerHTML = '<option value="">Error loading testcases</option>';-->
+<!--        });-->
+<!--      }-->
+<!--    }-->
+
+<!--    function fetchScenarioTable() {-->
+<!--      const testcasecode = testcaseSelect.value;-->
+<!--      if (!testcasecode) return;-->
+
+<!--      const url = `/nfserv/return_test_scn_name?Testcasecode=${testcasecode}`;-->
+
+<!--      fetch(url)-->
+<!--        .then(res => res.json())-->
+<!--        .then(data => {-->
+<!--          const scenarios = data.Testcase_scnarios || [];-->
+<!--          tableBody.innerHTML = "";-->
+
+<!--          scenarios.forEach(scenario => {-->
+<!--            const row = document.createElement("tr");-->
+<!--            row.innerHTML = `-->
+<!--              <td>${testcasecode}</td>-->
+<!--              <td>${scenario}</td>-->
+<!--              <td>Pending</td>-->
+<!--              <td>Not Started</td>-->
+<!--              <td>&#45;&#45;</td>-->
+<!--            `;-->
+<!--            tableBody.appendChild(row);-->
+<!--          });-->
+
+<!--          tableContainer.style.display = "block";-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error loading scenario data:", err);-->
+<!--        });-->
+<!--    }-->
+
+<!--    function runProcess() {-->
+<!--      alert("🟢 Run process triggered! Connect your API here.");-->
+<!--    }-->
+
+<!--    clientSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    moduleSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    environmentSelect.addEventListener("change", fetchTestcaseCodes);-->
+<!--    testcaseSelect.addEventListener("change", fetchScenarioTable);-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Automation Run</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F2F2F2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 40px auto;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .button-row {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .btn-run {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-run:hover {
+      background-color: #218838;
+    }
+
+    .btn-refresh {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-refresh:hover {
+      background-color: #0069d9;
+    }
+
+    .table-container {
+      display: none;
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+    }
+
+    .table-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .refresh-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .refresh-icon svg {
+      fill: #007bff;
+    }
+
+    #scenario-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      font-size: 13px;
+      table-layout: fixed;
+    }
+
+    #scenario-table thead {
+      background-color: #f0f0f0;
+    }
+
+    #scenario-table th,
+    #scenario-table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    #scenario-table th:nth-child(1),
+    #scenario-table td:nth-child(1) {
+      width: 15%;
+    }
+
+    #scenario-table th:nth-child(2),
+    #scenario-table td:nth-child(2) {
+      width: 40%;
+    }
+
+    #scenario-table th:nth-child(3),
+    #scenario-table td:nth-child(3),
+    #scenario-table th:nth-child(4),
+    #scenario-table td:nth-child(4),
+    #scenario-table th:nth-child(5),
+    #scenario-table td:nth-child(5) {
+      width: 15%;
+    }
+
+    #scenario-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    #scenario-table th {
+      color: #333;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <h2>Automation RUN</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="client">Client Name</label>
+        <select id="client">
+          <option value="" disabled selected>Choose the client</option>
+          <option value="NAC">NAC</option>
+          <option value="NF">NF</option>
+          <option value="KVB">KVB</option>
+          <option value="IB">IB</option>
+          <option value="WR">WR</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="module">Module</label>
+        <select id="module">
+          <option value="" disabled selected>Select module</option>
+          <option value="Login">Login</option>
+          <option value="ECF">ECF</option>
+          <option value="Vendor">Vendor</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="environment">Environment</label>
+        <select id="environment">
+          <option value="" disabled selected>Select environment</option>
+          <option value="DO">DO</option>
+          <option value="UAT">UAT</option>
+          <option value="SIT">SIT</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="testcase">Testcase Code</label>
+        <select id="testcase">
+          <option value="" disabled selected>Select Testcase Code</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="btn btn-run">RUN</button>
+      <button class="btn btn-refresh" onclick="location.reload()">REFRESH</button>
+    </div>
+  </div>
+
+  <!-- Scenario Table Div -->
+  <div class="table-container" id="table-container">
+    <div class="table-title">
+      Scenario Summary
+      <button id="refresh-scenario" class="refresh-icon" title="Refresh Table">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42
+          0-8 3.58-8 8h1.5a6.5 6.5 0 0111.45-4.25l-2.65
+          2.65H20V4l-2.35 2.35zM6.35 17.65C7.8 19.1
+          9.79 20 12 20c4.42 0 8-3.58
+          8-8h-1.5a6.5 6.5 0 01-11.45 4.25l2.65-2.65H4v6h2.35l-2-2z"/>
+        </svg>
+      </button>
+    </div>
+    <table id="scenario-table">
+      <thead>
+        <tr>
+          <th>Testcase Code</th>
+          <th>Scenario Name</th>
+          <th>Test Implement Status</th>
+          <th>Process Status</th>
+          <th>Loader</th>
+        </tr>
+      </thead>
+      <tbody id="scenario-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const clientSelect = document.getElementById("client");
+    const moduleSelect = document.getElementById("module");
+    const environmentSelect = document.getElementById("environment");
+    const testcaseSelect = document.getElementById("testcase");
+    const tableContainer = document.getElementById("table-container");
+    const tableBody = document.getElementById("scenario-body");
+
+    function fetchTestcaseCodes() {
+      const clientname = clientSelect.value;
+      const module = moduleSelect.value;
+      const environment = environmentSelect.value;
+
+      if (clientname && module && environment) {
+        const url = `/nfserv/dropdown_testcase?clientname=${clientname}&module=${module}&environment=${environment}`;
+
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+          testcaseSelect.innerHTML = '<option value="" disabled selected>Select Testcase Code</option>';
+          data.forEach(tc => {
+            const option = document.createElement('option');
+            option.value = tc;
+            option.textContent = tc;
+            testcaseSelect.appendChild(option);
+          });
+
+          tableContainer.style.display = "none";
+          tableBody.innerHTML = "";
+        })
+        .catch(err => {
+          console.error("Error fetching testcase codes:", err);
+          testcaseSelect.innerHTML = '<option value="">Error loading testcases</option>';
+        });
+      }
+    }
+
+    function fetchScenarioTable() {
+      const testcasecode = testcaseSelect.value;
+      if (!testcasecode) return;
+
+      const url = `/nfserv/return_test_scn_name?Testcasecode=${testcasecode}`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const scenarios = data.Testcase_scnarios || [];
+          tableBody.innerHTML = "";
+
+          scenarios.forEach(scenario => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${testcasecode}</td>
+              <td>${scenario}</td>
+              <td>Pending</td>
+              <td>Not Started</td>
+              <td>—</td>
+            `;
+            tableBody.appendChild(row);
+          });
+
+          tableContainer.style.display = "block";
+        })
+        .catch(err => {
+          console.error("Error loading scenario data:", err);
+        });
+    }
+
+    // Listeners
+    clientSelect.addEventListener("change", fetchTestcaseCodes);
+    moduleSelect.addEventListener("change", fetchTestcaseCodes);
+    environmentSelect.addEventListener("change", fetchTestcaseCodes);
+    testcaseSelect.addEventListener("change", fetchScenarioTable);
+    document.getElementById("refresh-scenario").addEventListener("click", fetchScenarioTable);
+  </script>
+</body>
+</html>
