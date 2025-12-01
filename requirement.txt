@@ -1,0 +1,65 @@
+Brotli==1.1.0
+Django==5.2.1
+PyMySQL	==1.1.1
+PyYAML==6.0.2
+Pygments==2.19.1
+XlsxWriter==3.2.3
+asgiref==3.8.1
+awscli==1.40.22
+botocore==1.38.23
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+colorama==0.4.6
+cryptography==	45.0.3
+cssselect2==	0.8.0
+djangorestframework==3.16.0
+docutils==0.19
+environs==14.1.1
+et_xmlfile==2.0.0
+fonttools==4.58.0
+greenlet==3.2.3
+idna==3.10
+image==1.5.33
+imgurpython==1.1.7
+inch==0.2.0
+jdcal==1.4.1
+jmespath==1.0.1
+markdown-it-py==3.0.0
+marshmallow==4.0.0
+mdurl==0.1.2
+numpy==2.2.5
+openpyexcel==2.5.14
+openpyxl==3.1.5
+pandas==2.2.3
+pd==0.0.4
+pdfkit==1.0.0
+pillow==11.2.1
+pip==25.1.1
+playwright==1.52.0
+py3-wkhtmltopdf==0.4.1
+pyasn1==0.6.1
+pycparser==2.22
+pydyf==	0.11.0
+pyee==13.0.0
+pyphen==0.17.2
+python-dateutil==2.9.0.post0
+python-dotenv==1.1.0
+pytz==2025.2
+requests==2.32.3
+rich==14.0.0
+rsa==4.7.2
+s3transfer==0.13.0
+setuptools==80.4.0
+six==1.17.0
+sqlparse==0.5.3
+tinycss2==1.4.0
+tinyhtml5==2.0.0
+typing_extensions==4.13.2
+tzdata==2025.2
+urllib3	==2.4.0
+weasyprint==65.1
+webencodings==0.5.1
+wkhtmltopdf==0.2
+zopfli==0.2.3.post1
+
